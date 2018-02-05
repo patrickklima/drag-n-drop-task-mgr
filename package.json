@@ -1,0 +1,26 @@
+{
+  "name": "project_djello",
+  "version": "1.0.0",
+  "description": "Project management with that great wobbly taste!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/patrickklima/project_djello.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/patrickklima/project_djello/issues"
+  },
+  "homepage": "https://github.com/patrickklima/project_djello#readme",
+  "dependencies": {
+    "bluebird": "^3.5.1",
+    "eslint": "^4.17.0",
+    "mongoose": "^5.0.3",
+    "mongooseeder": "^2.0.6"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "development": {
+    "database": "djello_db",
+    "host": "localhost"
+  },
+  "test": {
+    "database": "djello_db_test",
+    "host": "localhost"
+  },
+  "production": {
+    "use_env_variable": "MONGODB_URI"
+  }
+}
