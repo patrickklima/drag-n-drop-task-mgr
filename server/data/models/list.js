@@ -1,13 +1,17 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 var ListSchema = new Schema({
   listTitle: String,
   description: String,
-  cardIds: Array
+  cards: [{type: Schema.Types.ObjectId, ref: 'Card'}]
 }, {
   timestamps: true
 });
+
+ListSchema.statics.getListAndCards = (id) => {
+  return List.find({_id: id}).populate('cards');
+}
 
 var List = mongoose.model('List', ListSchema);
 

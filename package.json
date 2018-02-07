@@ -19,8 +19,15 @@
   "homepage": "https://github.com/patrickklima/project_djello#readme",
   "dependencies": {
     "bluebird": "^3.5.1",
+    "dotenv": "^5.0.0",
     "eslint": "^4.17.0",
+    "express": "^4.16.2",
     "mongoose": "^5.0.3",
-    "mongooseeder": "^2.0.6"
+    "mongooseeder": "^2.0.6",
+    "morgan": "^1.9.0",
+    "morgan-toolkit": "^1.2.2",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-router-dom": "^4.2.2"
   }
 }

@@ -30,14 +30,14 @@ const seeds = () => {
     return new List({
       listTitle: title, 
       description: description,
-      cardIds: cardsArray.map(card => card._id)
+      cards: cardsArray.map(card => card._id)
     });
   }
 
   const boardFactory = (title, arrayOfLists) => {
     return new Board({
       boardTitle: title,
-      listIds: arrayOfLists.map(list => list._id)
+      lists: arrayOfLists.map(list => list._id)
     });
   }
 
