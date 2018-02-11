@@ -8,12 +8,14 @@ var BoardSchema = new Schema({
   timestamps: true
 });
 
-BoardSchema.statics.geAlltBoardsAndLists = () => {
-  return Board.find({}).populate('lists');
-}
-
-
-
+BoardSchema.statics.getBoardAndLists = (id) => {
+  return Board
+    .find({_id: id})
+    .populate({
+      path: 'lists',
+      populate: {path: 'cards'}
+    });
+};
 
 var Board = mongoose.model('Board', BoardSchema);
 

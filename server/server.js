@@ -7,6 +7,15 @@ require('dotenv').config();
 const Express = require('express');
 const app = Express();
 
+// CORS
+// ----------
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
+
 // MORGAN - LOGGING
 // ----------
 const morgan = require('morgan');
@@ -36,15 +45,20 @@ app.get('/', (req, res) => {
   res.send('hello world');
 });
 
-app.get('/boards', (req, res, next) => {
-  data.geAlltBoardsAndLists()
-  .then(data => res.json(data))
+app.get('/boards/:id', (req, res, next) => {
+  console.log("boards - received request")
+  data.getBoardAndLists(req.params.id)
+  .then(data => {
+    console.log("Boards - sending data",data)
+    res.json(data)})
   .catch(e => next(e));
 });
 
 app.get('/lists/:id', (req, res, next) => {
   data.getListAndCards(req.params.id)
-  .then(data => res.json(data))
+  .then(data => {
+    console.log("Boards - sending data",data)
+    res.json(data)})
   .catch(e => next(e));
 });
 

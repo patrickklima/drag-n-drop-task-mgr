@@ -9,8 +9,8 @@ const data = {};
 data.User = {};
 data.User.find = (username) => User.find({username});
 
-data.geAlltBoardsAndLists = () => {
-  return Board.geAlltBoardsAndLists();
+data.getBoardAndLists = (id) => {
+  return Board.getBoardAndLists(id);
 }
 
 data.getListAndCards = (id) => {
