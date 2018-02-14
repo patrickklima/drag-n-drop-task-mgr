@@ -13,6 +13,11 @@ ListSchema.statics.getListAndCards = (id) => {
   return List.find({_id: id}).populate('cards');
 }
 
+ListSchema.statics.update = (id, data) => {
+  return List.findByIdAndUpdate(id, data);
+}
+
+
 var List = mongoose.model('List', ListSchema);
 
 module.exports = List;

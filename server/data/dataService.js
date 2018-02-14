@@ -13,10 +13,13 @@ data.getBoardAndLists = (id) => {
   return Board.getBoardAndLists(id);
 }
 
-data.getListAndCards = (id) => {
-  return List.getListAndCards(id);
-}
-
+data.updateDoc = (modelType, id, data, boardId) => {
+  //update record
+  [modelType].update(id, data)
+  .then(() => data.getBoardAndLists(boardId));
+  //query for parent
+  //getBoardAndLists(board.id)
+};
 
 
 

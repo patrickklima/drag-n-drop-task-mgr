@@ -10,6 +10,10 @@ var CardSchema = new Schema({
   timestamps: true
 });
 
+CardSchema.statics.update = (id, data) => {
+  return Card.findByIdAndUpdate(id, data);
+}
+
 var Card = mongoose.model('Card', CardSchema);
 
 module.exports = Card;

@@ -15,6 +15,11 @@ app.use(function(req, res, next) {
   next();
 });
 
+// BODY-PARSER
+// ----------
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
+
 
 // MORGAN - LOGGING
 // ----------
@@ -59,6 +64,17 @@ app.get('/lists/:id', (req, res, next) => {
   .then(data => {
     console.log("Boards - sending data",data)
     res.json(data)})
+  .catch(e => next(e));
+});
+
+app.put('/:type/:id', (req, res, next) => {
+  const {type, id} = req.params;
+  const {data, boardId} = req.body;
+  data.updateDoc(type, id, data, boardId)
+  .then(response => {
+    console.log(`update ${type} - sending response`,response);
+    res.json(response);
+  })
   .catch(e => next(e));
 });
 
