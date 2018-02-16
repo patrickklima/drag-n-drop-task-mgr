@@ -44,7 +44,6 @@ class CardContainer extends Component {
     };
   }
   onChangeTextField = (e, newValue) => {
-    console.log("onChangeTextField - target", e.target);
     this.setState({
       inProgressChanges: {
         ...this.state.inProgressChanges,

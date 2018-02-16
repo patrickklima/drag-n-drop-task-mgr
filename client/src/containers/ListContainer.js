@@ -5,9 +5,12 @@ import {updateBoard} from '../actions/BoardActions';
 
 
 const mapStateToProps = (state, ownProps) => {
+  const {listId} = ownProps;
+  const {_id, lists} = state.board;
   return {
-    boardId: state.board._id,
-    list: state.board.lists[ownProps.listId]
+    list: lists[listId],
+    boardId: _id,
+    listId
   };
 }
 
@@ -23,12 +26,43 @@ class ListContainer extends Component {
     super(props);
     this.state = {
       type: 'List',
-      listId: props.listId,
-      isFetching: false,
-      error: null
+      displayedListTitle: '',
+      buttonsShow: false
     };
   }
-   
+  componentDidMount = () => {
+    this.setState({
+      displayedListTitle: this.props.list.listTitle
+    })
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.list.listTitle !== prevProps.list.listTitle) {
+      this.setState({
+        displayedListTitle: this.props.list.listTitle
+      });
+    }
+  }
+  onChangeTextField = (e, newValue) => {
+    console.log("onChangeTextField - target", e.target);
+    this.setState({
+      buttonsShow: true,
+      displayedListTitle: newValue
+    });
+  }
+  saveChanges = (e) => {
+    const {type, displayedListTitle} = this.state;
+    const {listId, boardId} = this.props;
+    this.props.updateBoard(type, listId, {listTitle: displayedListTitle}, boardId);
+    this.setState({
+      buttonsShow: false
+    });
+  }
+  cancelChanges = (e) => {
+    this.setState({
+      listTitle: this.props.list.listTitle,
+      buttonsShow: false
+    })
+  }
   
   render() {
     console.log("ListContainer", this.props.list);
@@ -36,6 +70,11 @@ class ListContainer extends Component {
       <div>
         <List
           list={this.props.list}
+          listTitle={this.state.listTitle}
+          onChangeTextField={this.onChangeTextField}
+          buttonsShow={this.state.buttonsShow}
+          saveChanges={this.saveChanges}
+          cancelChanges={this.cancelChanges}
         />
       </div>
     );
