@@ -22,10 +22,10 @@ const mapDispatchToProps = (dispatch) => {
 class BoardContainer extends Component {
   constructor(props) {
     super(props);
-    // this.state = {
-    //   type: 'Board',
-    //   receivedId: props.id
-    // };
+    this.state = {
+      type: 'Board',
+      receivedId: props.id
+    };
   }
   
   componentDidMount = () => {

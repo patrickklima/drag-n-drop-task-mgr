@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import {ListItem} from 'material-ui/List';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import DatePicker from 'material-ui/DatePicker';
 import TextField from 'material-ui/TextField';
 import {updateBoard} from '../actions/BoardActions';
 const moment = require('moment');
@@ -54,8 +53,8 @@ class CardContainer extends Component {
     });
   }
   okToSaveChanges = (e, okToSave) => {
-    const {inProgressChanges} = this.state;
-    const {type, _id, changes} = this.props.card;
+    const {type, inProgressChanges} = this.state;
+    const {_id, changes} = this.props.card;
     const boardId = this.props.boardId;
     let newState = {};
     if (okToSave) {

@@ -71,6 +71,8 @@ export const updateBoardRequest = () => {
 export const updateBoard = (type, id, data, boardId) => {
   return (dispatch) => {
     dispatch(updateBoardRequest);
+    console.log("updateBoard", type, id, data, boardId);
+    
     fetch(`${baseUrl[env]}/${type}/${id}`, {
       method: 'PUT', 
       body: JSON.stringify({data, boardId}), 
