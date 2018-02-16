@@ -1,10 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {ListItem} from 'material-ui/List';
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
-import TextField from 'material-ui/TextField';
 import {updateBoard} from '../actions/BoardActions';
+import Card from '../components/Card';
 const moment = require('moment');
 
 const mapStateToProps = (state, ownProps) => {
@@ -82,74 +79,20 @@ class CardContainer extends Component {
   }
 
   render() {
-    const buttons = [
-      <FlatButton
-        label="Save Changes"
-        primary={true}
-        onClick={(e) => this.okToSaveChanges(e, true)}
-      />,
-      <FlatButton
-        label="Cancel"
-        secondary={true}
-        onClick={(e) => this.okToSaveChanges(e, false)}
-      />,
-    ];
-    
-    const style = {
-      cardTitle: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        textTransform: 'capitalize'
-      }
-    }; 
-    
-    console.log("CardContainer - card", this.props.card);
-    console.log("CardContainer - cardID", this.props.cardId);
     const {cardTitle, description} = this.props.card;
-    
-
-    const cardDialog = 
-      <div>
-        <Dialog
-          modal={false}
-          actions={buttons}
-          open={this.state.isdialogOpen}
-          onRequestClose={this.closeDialog}
-        >
-        <div>
-          <TextField
-            defaultValue={cardTitle}
-            name='cardTitle'
-            inputStyle={style.cardTitle}
-            underlineShow={false}
-            onChange={this.onChangeTextField}
-          />
-        </div>
-        <div>
-          <TextField
-            defaultValue={description}
-            floatingLabelText="Description"
-            name='description'
-            multiLine={true}
-            rows={2}
-            rowsMax={6}
-            underlineShow={false}
-            onChange={this.onChangeTextField}
-          />
-        </div>
-        </Dialog>
-      </div>
-
+    console.log("CardContainer - cardID", this.props.cardId);
+    console.log("CardContainer - card", this.props.card);
     
     return (
-      <div>
-        <ListItem 
-          style={style.cardTitle}
-          onClick={this.openDialog}
-          primaryText={cardTitle}
-        />
-        {this.state.isdialogOpen && cardDialog }
-      </div> 
+      <Card 
+        cardTitle={cardTitle}
+        description={description}
+        isdialogOpen={this.state.isdialogOpen}
+        openDialog={this.openDialog}
+        closeDialog={this.closeDialog}
+        onChangeTextField={this.onChangeTextField}
+        okToSaveChanges={this.okToSaveChanges}
+      />
     );
   };
 }

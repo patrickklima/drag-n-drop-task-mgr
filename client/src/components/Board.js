@@ -47,7 +47,6 @@ export default ({board, displayedTitle, listIds, onChangeTextField, buttonShow, 
 return (
   <Paper zdepth={2}>
     <TextField
-      defaultValue={board.boardTitle}
       value={displayedTitle}
       name='boardTitle'
       inputStyle={style.boardTitle}

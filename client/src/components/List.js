@@ -39,7 +39,6 @@ export default ({list, displayedTitle, onChangeTextField, buttonShow, saveChange
     
     <div >
       <TextField
-        defaultValue={list.listTitle}
         value={displayedTitle}
         name='listTitle'
         inputStyle={style.listTitle}
