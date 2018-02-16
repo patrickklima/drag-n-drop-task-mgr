@@ -26,53 +26,40 @@ class ListContainer extends Component {
     super(props);
     this.state = {
       type: 'List',
-      displayedListTitle: '',
-      buttonsShow: false
+      displayedTitle: this.props.list.listTitle,
+      buttonShow: false
     };
   }
-  componentDidMount = () => {
-    this.setState({
-      displayedListTitle: this.props.list.listTitle
-    })
-  }
-  componentDidUpdate(prevProps, prevState) {
-    if (this.props.list.listTitle !== prevProps.list.listTitle) {
-      this.setState({
-        displayedListTitle: this.props.list.listTitle
-      });
-    }
-  }
+  
   onChangeTextField = (e, newValue) => {
     console.log("onChangeTextField - target", e.target);
     this.setState({
-      buttonsShow: true,
-      displayedListTitle: newValue
+      displayedTitle: newValue,
+      buttonShow: true
     });
   }
   saveChanges = (e) => {
-    const {type, displayedListTitle} = this.state;
+    const {type, displayedTitle} = this.state;
     const {listId, boardId} = this.props;
-    this.props.updateBoard(type, listId, {listTitle: displayedListTitle}, boardId);
-    this.setState({
-      buttonsShow: false
-    });
+    this.props.updateBoard(type, listId, {listTitle: displayedTitle}, boardId);
+    this.setState({buttonShow: false})
   }
   cancelChanges = (e) => {
     this.setState({
-      listTitle: this.props.list.listTitle,
-      buttonsShow: false
+      displayedTitle: this.props.list.listTitle,
+      buttonShow: false
     })
   }
   
   render() {
-    console.log("ListContainer", this.props.list);
+    console.log("ListContainer", this.state);
     return (
       <div>
         <List
           list={this.props.list}
-          listTitle={this.state.listTitle}
+          displayedTitle={this.state.displayedTitle}
           onChangeTextField={this.onChangeTextField}
-          buttonsShow={this.state.buttonsShow}
+          buttonShow={this.state.buttonShow}
           saveChanges={this.saveChanges}
           cancelChanges={this.cancelChanges}
         />

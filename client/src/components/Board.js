@@ -1,10 +1,12 @@
 import React from 'react';
 import Paper from 'material-ui/Paper';
+import TextField from 'material-ui/TextField';
+import FlatButton from 'material-ui/FlatButton';
 import {List as MaterialList} from 'material-ui/List';
 import ListContainer from '../containers/ListContainer';
 // import DjelloList from './List';
 
-export default ({board, listIds}) => {
+export default ({board, displayedTitle, listIds, onChangeTextField, buttonShow, saveChanges, cancelChanges}) => {
   console.log("starting board: ", board);
   const listMap = listIds.map(listId => {
     console.log("list", listId);
@@ -14,6 +16,21 @@ export default ({board, listIds}) => {
       </MaterialList>
     );
   });
+  
+  const buttons = [
+    <FlatButton
+      key="Save"
+      label="Save"
+      primary={true}
+      onClick={saveChanges}
+    />,
+    <FlatButton
+      key="Canel"
+      label="X"
+      secondary={true}
+      onClick={cancelChanges}
+    />
+  ]
 
   const style = {
     boardTitle: {
@@ -29,7 +46,15 @@ export default ({board, listIds}) => {
 
 return (
   <Paper zdepth={2}>
-    <h2 style={style.boardTitle}>{board.boardTitle}</h2>
+    <TextField
+      defaultValue={board.boardTitle}
+      value={displayedTitle}
+      name='boardTitle'
+      inputStyle={style.boardTitle}
+      underlineShow={false}
+      onChange={onChangeTextField}
+    />
+    {buttonShow && buttons}
     <div style={style.listLayout}>
       {listMap}
     </div>

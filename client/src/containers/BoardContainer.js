@@ -24,7 +24,9 @@ class BoardContainer extends Component {
     super(props);
     this.state = {
       type: 'Board',
-      receivedId: props.id
+      receivedId: props.id, 
+      displayedTitle: this.props.boardTitle,
+      buttonShow: false
     };
   }
   
@@ -33,11 +35,49 @@ class BoardContainer extends Component {
     // this.props.getBoard(this.state.receivedId);
     this.props.getBoard(this.props.boardId);
   }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.board.boardTitle !== this.props.board.boardTitle) {
+      this.setState({
+        displayedTitle: this.props.board.boardTitle
+      })
+    }
+  }
   
+  
+  onChangeTextField = (e, newValue) => {
+    console.log("onChangeTextField - target", e.target);
+    this.setState({
+      displayedTitle: newValue,
+      buttonShow: true
+    });
+  }
+  saveChanges = (e) => {
+    const {type, displayedTitle} = this.state;
+    const {boardId} = this.props;
+    console.log("saveChanges", displayedTitle)
+    this.props.updateBoard(type, boardId, {boardTitle: displayedTitle}, boardId);
+    this.setState({buttonShow: false})
+  }
+  cancelChanges = (e) => {
+    this.setState({
+      displayedTitle: this.props.board.boardTitle,
+      buttonShow: false
+    })
+  }
+
   render() {
     console.log("BoardContainer:", this.props.board)
     return (
-      <Board board={this.props.board} listIds={this.props.listIds} />
+      <Board 
+        board={this.props.board} 
+        displayedTitle={this.state.displayedTitle}
+        listIds={this.props.listIds} 
+        onChangeTextField={this.onChangeTextField}
+        buttonShow={this.state.buttonShow}
+        saveChanges={this.saveChanges}
+        cancelChanges={this.cancelChanges}
+      />
     );
   }
 }

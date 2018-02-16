@@ -1,13 +1,10 @@
 import React from 'react';
-import CardContainer from '../containers/CardContainer';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
+import CardContainer from '../containers/CardContainer';
 
-// export default (props) =>  {
-//   return <div>{JSON.stringify(props)}</div>;
-// };
-
-export default ({list, listTitle, onChangeTextField, buttonsShow, saveChanges, cancelChanges}) =>  {
+export default ({list, displayedTitle, onChangeTextField, buttonShow, saveChanges, cancelChanges}) =>  {
+  
   const cardMap = list.cards.map(cardId => {
     console.log("cardMap", cardId);
     return (
@@ -18,16 +15,19 @@ export default ({list, listTitle, onChangeTextField, buttonsShow, saveChanges, c
   });
   const buttons = [
     <FlatButton
+      key="Save"
       label="Save"
       primary={true}
       onClick={saveChanges}
     />,
     <FlatButton
+      key="Cancel"
       label="X"
       secondary={true}
       onClick={cancelChanges}
-    />,
-  ];
+    />
+  ]
+
   const style = {
     listTitle: {
       fontSize: 28,
@@ -36,15 +36,17 @@ export default ({list, listTitle, onChangeTextField, buttonsShow, saveChanges, c
     }
   }; 
   return (
+    
     <div >
       <TextField
         defaultValue={list.listTitle}
+        value={displayedTitle}
         name='listTitle'
         inputStyle={style.listTitle}
         underlineShow={false}
         onChange={onChangeTextField}
       />
-      {buttonsShow && buttons}
+      {buttonShow && buttons}
       {cardMap}
     </div>
   );
