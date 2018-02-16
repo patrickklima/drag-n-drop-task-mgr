@@ -17,7 +17,7 @@ BoardSchema.statics.getBoardAndLists = (_id) => {
     });
 };
 
-BoardSchema.statics.update = (id, data) => {
+BoardSchema.statics.updateOne = (id, data) => {
   return Board.findByIdAndUpdate(id, data);
 }
 

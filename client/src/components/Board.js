@@ -1,16 +1,16 @@
 import React from 'react';
 import Paper from 'material-ui/Paper';
 import {List as MaterialList} from 'material-ui/List';
-// import ListContainer from '../containers/ListContainer';
-import DjelloList from './List';
+import ListContainer from '../containers/ListContainer';
+// import DjelloList from './List';
 
-export default ({board}) => {
+export default ({board, listIds}) => {
   console.log("starting board: ", board);
-  const listMap = board.lists.map(list => {
-    console.log("list", list);
+  const listMap = listIds.map(listId => {
+    console.log("list", listId);
     return (
-      <MaterialList key={list.listTitle}>
-        <DjelloList list={list} />
+      <MaterialList key={listId}>
+        <ListContainer listId={listId}/>
       </MaterialList>
     );
   });

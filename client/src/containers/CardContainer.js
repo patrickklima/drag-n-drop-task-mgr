@@ -1,23 +1,40 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import {ListItem} from 'material-ui/List';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import DatePicker from 'material-ui/DatePicker';
 import TextField from 'material-ui/TextField';
+import {updateBoard} from '../actions/BoardActions';
 const moment = require('moment');
+
+const mapStateToProps = (state, ownProps) => {
+  const {board, board: {cards}} = state;
+  const {listId, cardId} = ownProps;
+  
+  return {
+    boardId: board._id,
+    card: cards[cardId],
+    listId,
+    cardId
+  };
+}
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateBoard: (type, id, data, boardId) => dispatch(updateBoard(type, id, data, boardId))
+  }
+}
 
 class CardContainer extends Component {
   constructor(props) {
     super(props);
-    const {card} = props;
+    const {listId, cardId} = props;
 
     this.state = {
-      _id: card._id,
-      cardTitle: card.cardTitle,
-      description: card.description,
-      members: card.members,
-      changes: card.changes,
-      dialogOpen: false,
+      type: 'Card',
+      listId: listId,
+      _id: cardId,
+      isdialogOpen: false,
       inProgressChanges: {
         title: '',
         description: '',
@@ -28,6 +45,7 @@ class CardContainer extends Component {
     };
   }
   onChangeTextField = (e, newValue) => {
+    console.log("onChangeTextField - target", e.target);
     this.setState({
       inProgressChanges: {
         ...this.state.inProgressChanges,
@@ -36,7 +54,9 @@ class CardContainer extends Component {
     });
   }
   okToSaveChanges = (e, okToSave) => {
-    const {inProgressChanges, changes} = this.state;
+    const {inProgressChanges} = this.state;
+    const {type, _id, changes} = this.props.card;
+    const boardId = this.props.boardId;
     let newState = {};
     if (okToSave) {
       newState = {
@@ -48,16 +68,19 @@ class CardContainer extends Component {
         ...changes,
         inProgressChanges
       ]
-    }
+      console.log("CardContainer", newState);
+      this.props.updateBoard(type, _id, newState, boardId);
+    } 
     newState.inProgressChanges = {};
     this.setState(newState);
     this.closeDialog();
   }
   openDialog = (e) => {
-    this.setState({dialogOpen: true});
+    console.log(e);
+    this.setState({isdialogOpen: true});
   }
   closeDialog = (e) => {
-    this.setState({dialogOpen: false});
+    this.setState({isdialogOpen: false});
   }
 
   render() {
@@ -82,17 +105,22 @@ class CardContainer extends Component {
       }
     }; 
     
+    console.log("CardContainer - card", this.props.card);
+    console.log("CardContainer - cardID", this.props.cardId);
+    const {cardTitle, description} = this.props.card;
+    
+
     const cardDialog = 
       <div>
         <Dialog
           modal={false}
           actions={buttons}
-          open={this.state.dialogOpen}
+          open={this.state.isdialogOpen}
           onRequestClose={this.closeDialog}
         >
         <div>
           <TextField
-            defaultValue={this.state.cardTitle}
+            defaultValue={cardTitle}
             name='cardTitle'
             inputStyle={style.cardTitle}
             underlineShow={false}
@@ -101,7 +129,7 @@ class CardContainer extends Component {
         </div>
         <div>
           <TextField
-            defaultValue={this.state.description}
+            defaultValue={description}
             floatingLabelText="Description"
             name='description'
             multiLine={true}
@@ -120,12 +148,12 @@ class CardContainer extends Component {
         <ListItem 
           style={style.cardTitle}
           onClick={this.openDialog}
-          primaryText={this.state.cardTitle}
+          primaryText={cardTitle}
         />
-        {this.state.dialogOpen && cardDialog }
+        {this.state.isdialogOpen && cardDialog }
       </div> 
     );
   };
 }
 
-export default CardContainer;
+export default connect(mapStateToProps, mapDispatchToProps)(CardContainer);

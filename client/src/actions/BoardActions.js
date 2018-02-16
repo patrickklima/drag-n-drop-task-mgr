@@ -1,12 +1,8 @@
 const baseUrl = {
-  dev: 'http://localhost:8080/',
+  dev: 'http://localhost:8080',
 };
 const env = 'dev';
-const endPoints = {
-  boards: 'boards', 
-  lists: 'lists',
-  cards: 'cards'
-};
+
 
 export const GET_BOARD_SUCCESS =  "GET_BOARD_SUCCESS";
 export const GET_BOARD_FAILURE =  "GET_BOARD_FAILURE";
@@ -41,16 +37,15 @@ export const getBoard = (id) => {
   return (dispatch) => {
     dispatch(getBoardRequest())
     console.log("fetching: getBoard");
-    const {boards} = endPoints;
-    fetch(`${url[env]}/${boards}/${id}`)
+    fetch(`${baseUrl[env]}/boards/${id}`)
     .then(response => response.json())
     .then(json => {
       console.log("getBoard received data", json);
       dispatch(getBoardSuccess(json[0]));
     })
     .catch(e => {
-      console.log("dispatching getBoardFailure");
-      dispatch(getBoardFailure(e))
+      console.log("dispatching getBoardFailure", e);
+      dispatch(getBoardFailure(e));
     });
   }
 }
@@ -73,22 +68,26 @@ export const updateBoardRequest = () => {
     type: UPDATE_BOARD_REQUEST,
   };
 }
-export const updateBoard = (type, id, data) => {
+export const updateBoard = (type, id, data, boardId) => {
   return (dispatch) => {
     dispatch(updateBoardRequest);
-    fetch(`${url[env]}/${type}/${id}`, {
+    fetch(`${baseUrl[env]}/${type}/${id}`, {
       method: 'PUT', 
-      body: JSON.stringify(data), 
+      body: JSON.stringify({data, boardId}), 
       headers: new Headers({
         'Content-Type': 'application/json'
       })
-    }).then(res => res.json())
+    }).then(res => {
+      let tempResponse = res.json();
+      console.log("tempResponse",tempResponse);
+      return tempResponse;
+    })
     .then(json => {
       console.log("updateBoard received data", json);
-      dispatch(updateBoardSuccess(json[0]));
+      dispatch(getBoardSuccess(json[0]));
     })
     .catch(e => {
-      console.log("dispatching updateBoardFailure");
+      console.log("dispatching updateBoardFailure", e);
       dispatch(updateBoardFailure(e))
     });
   }

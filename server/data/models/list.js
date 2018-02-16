@@ -13,7 +13,7 @@ ListSchema.statics.getListAndCards = (id) => {
   return List.find({_id: id}).populate('cards');
 }
 
-ListSchema.statics.update = (id, data) => {
+ListSchema.statics.updateOne = (id, data) => {
   return List.findByIdAndUpdate(id, data);
 }
 

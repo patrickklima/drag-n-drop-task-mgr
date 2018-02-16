@@ -6,10 +6,11 @@ import CardContainer from '../containers/CardContainer';
 // };
 
 export default ({list}) =>  {
-  const cardMap = list.cards.map(card => {
+  const cardMap = list.cards.map(cardId => {
+    console.log("cardMap", cardId);
     return (
-      <div key={card._id}>
-        <CardContainer card={card} />
+      <div key={cardId}>
+        <CardContainer cardId={cardId} listId={list._id}/>
       </div>
     );
   });

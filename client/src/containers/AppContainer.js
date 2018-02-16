@@ -30,4 +30,4 @@ class AppContainer extends Component {
   }
 }
 
-export default App;
+export default AppContainer;

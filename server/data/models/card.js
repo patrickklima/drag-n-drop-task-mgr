@@ -10,7 +10,7 @@ var CardSchema = new Schema({
   timestamps: true
 });
 
-CardSchema.statics.update = (id, data) => {
+CardSchema.statics.updateOne = (id, data) => {
   return Card.findByIdAndUpdate(id, data);
 }
 

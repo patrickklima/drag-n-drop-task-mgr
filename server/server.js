@@ -10,8 +10,9 @@ const app = Express();
 // CORS
 // ----------
 app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
   next();
 });
 
@@ -41,7 +42,7 @@ app.use((req, res, next) => {
 
 // DATA
 // ----------
-const data = require('./data/dataService');
+const {getBoardAndLists, getListAndCards, updateAnyDoc} = require('./data/dataService');
 
 
 // ROUTES
@@ -52,7 +53,7 @@ app.get('/', (req, res) => {
 
 app.get('/boards/:id', (req, res, next) => {
   console.log("boards - received request")
-  data.getBoardAndLists(req.params.id)
+  getBoardAndLists(req.params.id)
   .then(data => {
     console.log("Boards - sending data",data)
     res.json(data)})
@@ -60,7 +61,7 @@ app.get('/boards/:id', (req, res, next) => {
 });
 
 app.get('/lists/:id', (req, res, next) => {
-  data.getListAndCards(req.params.id)
+  getListAndCards(req.params.id)
   .then(data => {
     console.log("Boards - sending data",data)
     res.json(data)})
@@ -70,11 +71,13 @@ app.get('/lists/:id', (req, res, next) => {
 app.put('/:type/:id', (req, res, next) => {
   const {type, id} = req.params;
   const {data, boardId} = req.body;
-  data.updateDoc(type, id, data, boardId)
+  console.log("updateAnyDoc", updateAnyDoc);
+  updateAnyDoc(type, id, data, boardId)
   .then(response => {
     console.log(`update ${type} - sending response`,response);
-    res.json(response);
+    return response;
   })
+  .then(response => res.json(response))
   .catch(e => next(e));
 });
 

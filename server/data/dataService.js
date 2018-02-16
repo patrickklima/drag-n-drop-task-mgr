@@ -1,26 +1,30 @@
-const {
-  User,
-  Board, 
-  List,
-  Card 
-} = require('./models');
+const {Card, Board} = require('./models');
 
-const data = {};
-data.User = {};
-data.User.find = (username) => User.find({username});
-
-data.getBoardAndLists = (id) => {
-  return Board.getBoardAndLists(id);
-}
-
-data.updateDoc = (modelType, id, data, boardId) => {
-  //update record
-  [modelType].update(id, data)
-  .then(() => data.getBoardAndLists(boardId));
-  //query for parent
-  //getBoardAndLists(board.id)
+var data = {
+  getBoardAndLists: (id) => Board.getBoardAndLists(id),
+  updateAnyDoc: (modelType, id, data, boardId) => {
+    console.log("updateAnyDoc", modelType, id, data, boardId);
+    return Card.updateOne(id, data)
+    .then(() => Board.getBoardAndLists(boardId))
+    .catch(e => console.log(e));
+  },
 };
 
+
+// var data = {};
+
+// data.getBoardAndLists = (id) => {
+//   return Board.getBoardAndLists(id);
+// };
+
+
+// data.updateAnyDoc = (modelType, id, data, boardId) => {
+//   //update record
+//   console.log("updateAnyDoc", modelType, id, data, boardId);
+//   return Card.updateOne(id, data)
+//   .then(() => data.getBoardAndLists(boardId))
+//   .catch(e => console.log(e));
+// };
 
 
 module.exports = data;
