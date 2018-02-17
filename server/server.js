@@ -16,11 +16,39 @@ app.use(function(req, res, next) {
   next();
 });
 
+// COOKIE-PARSER
+// ----------
+const cookieParser = require("cookie-parser");
+app.use(cookieParser());
+
 // BODY-PARSER
 // ----------
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
+// EXPRESS-SESSION
+// ----------
+const expressSession = require("express-session");
+app.use(
+  expressSession({
+    secret: process.env.secret || "keyboard cat",
+    saveUninitialized: false,
+    resave: false
+  })
+);
+
+// PASSPORT-LOCAL STRATEGY
+// ----------
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
+app.use(passport.initialize());
+app.use(passport.session());
+
+var User = require('./data/models/user');
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 // MORGAN - LOGGING
 // ----------
@@ -40,9 +68,10 @@ app.use((req, res, next) => {
   }
 });
 
-// DATA
+// SERVICES
 // ----------
-const {getBoardAndLists, getListAndCards, updateAnyDoc} = require('./data/dataService');
+require('./services/create-user-service')(app);
+const {getBoardAndLists, updateAnyDoc} = require('./services/data-service');
 
 
 // ROUTES
@@ -60,14 +89,6 @@ app.get('/boards/:id', (req, res, next) => {
   .catch(e => next(e));
 });
 
-app.get('/lists/:id', (req, res, next) => {
-  getListAndCards(req.params.id)
-  .then(data => {
-    console.log("Boards - sending data",data)
-    res.json(data)})
-  .catch(e => next(e));
-});
-
 app.put('/:type/:id', (req, res, next) => {
   const {type, id} = req.params;
   const {data, boardId} = req.body;
@@ -78,7 +99,7 @@ app.put('/:type/:id', (req, res, next) => {
     return response;
   })
   .then(response => res.json(response))
-  .catch(e => next(e));
+  .catch(err => next(err));
 });
 
 // ERROR HANDLING
