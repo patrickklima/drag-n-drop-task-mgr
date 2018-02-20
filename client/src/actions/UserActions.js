@@ -61,13 +61,13 @@ export const registerUserFailure = (error) => {
 export const registerUser = (username, password) => {
   return (dispatch) => {
     dispatch(registerUserRequest());
-    
+    console.log("registerUser", username, password, `${baseUrl[env]}/register`);
     fetch(`${baseUrl[env]}/register`, {
       method: 'POST', 
       headers: new Headers({
-        'Content-Type': 'application/x-www-form-urlencoded' 
+        'Content-Type': 'application/json'
       }),
-      form: {username, password},
+      body: JSON.stringify({username, password})
     })
     .then(res => {
       if (!res.ok) {

@@ -25,7 +25,7 @@ class BoardContainer extends Component {
     this.state = {
       type: 'Board',
       receivedId: props.id, 
-      displayedTitle: this.props.boardTitle,
+      displayedTitle: this.props.boardTitle || '',
       buttonShow: false
     };
   }

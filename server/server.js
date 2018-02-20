@@ -7,12 +7,27 @@ require('dotenv').config();
 const Express = require('express');
 const app = Express();
 
+// LOG-4JS LOGGER
+// ----------
+const log4js = require('log4js');
+const logger = log4js.getLogger();
+logger.level = 'debug';
+log4js.configure({
+  appenders: {
+    everything: { type: 'file', filename: 'node.js.log' }
+  },
+  categories: {
+    default: { appenders: [ 'everything' ], level: 'debug' }
+  }
+});
+
 // CORS
 // ----------
 app.use(function(req, res, next) {
+  logger.debug('original request', req);
   res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, X-PINGOTHER, Content-Type, Accept');
+  res.header('Access-Control-Allow-Methods', 'POST, PUT, GET, DELETE, OPTIONS');
   next();
 });
 
