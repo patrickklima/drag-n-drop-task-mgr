@@ -10,8 +10,7 @@ import Paper from 'material-ui/Paper';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {getAuth} from '../actions/UserActions'
 import BoardContainer from './BoardContainer';
-import RegistrationContainer from './RegistrationContainer';
-import LoginContainer from './LoginContainer';
+import RegisterOrLoginContainer from './RegisterOrLoginContainer';
 
 
 
@@ -38,8 +37,7 @@ class AppContainer extends Component {
       return (
         <Paper zdepth={2}>
           <div>
-            <RegistrationContainer />
-            <LoginContainer />
+            <RegisterOrLoginContainer />
           </div>
         </Paper>
       );

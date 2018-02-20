@@ -75,20 +75,20 @@ const board = (state=initial.board, action) => {
 
 const user = (state=initial.user, action) => {
   switch (action.type) {
-    case UserActions.REGISTER_USER_REQUEST: 
+    case UserActions.CREATE_OR_LOG_IN_USER_REQUEST: 
     case UserActions.GET_AUTH_REQUEST: 
       return {
         ...state,
         isFetching: true
       };
-    case UserActions.REGISTER_USER_SUCCESS:
+    case UserActions.CREATE_OR_LOG_IN_USER_SUCCESS:
     case UserActions.GET_AUTH_SUCCESS: 
       return {
         ...state,
         hasAuth: true,
         isFetching: false
       };
-    case UserActions.REGISTER_USER_FAILURE:
+    case UserActions.CREATE_OR_LOG_IN_USER_FAILURE:
     case UserActions.GET_AUTH_FAILURE: 
       return {
         ...state,

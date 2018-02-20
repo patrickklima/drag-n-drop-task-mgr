@@ -2,6 +2,10 @@ const baseUrl = {
   dev: 'http://localhost:8080',
 };
 const env = 'dev';
+const createOrLogInPath = {
+  true: 'register',
+  false: 'login'
+}
 
 export const GET_AUTH_REQUEST = "GET_AUTH_REQUEST";
 export const GET_AUTH_SUCCESS = "GET_AUTH_SUCCESS";
@@ -37,37 +41,37 @@ export const getAuth = () => {
     })
   };
 }
-export const REGISTER_USER_REQUEST = "REGISTER_USER_REQUEST";
-export const REGISTER_USER_SUCCESS = "REGISTER_USER_SUCCESS";
-export const REGISTER_USER_FAILURE = "REGISTER_USER_FAILURE";
+export const CREATE_OR_LOG_IN_USER_REQUEST = "CREATE_OR_LOG_IN_USER_REQUEST";
+export const CREATE_OR_LOG_IN_USER_SUCCESS = "CREATE_OR_LOG_IN_USER_SUCCESS";
+export const CREATE_OR_LOG_IN_USER_FAILURE = "CREATE_OR_LOG_IN_USER_FAILURE";
 
-export const registerUserRequest = () => {
+export const createOrLogInUserRequest = () => {
   return {
-    type: REGISTER_USER_REQUEST
+    type: CREATE_OR_LOG_IN_USER_REQUEST
   };
 }
-export const registerUserSuccess = (data) => {
+export const createOrLogInUserSuccess = (data) => {
   return {
-    type: REGISTER_USER_SUCCESS,
+    type: CREATE_OR_LOG_IN_USER_SUCCESS,
     data: data
   };
 }
-export const registerUserFailure = (error) => {
+export const createOrLogInUserFailure = (error) => {
   return {
-    type: REGISTER_USER_FAILURE,
+    type: CREATE_OR_LOG_IN_USER_FAILURE,
     data: error
   };
 }
-export const registerUser = (username, password) => {
+export const createOrLogInUser = (username, password, createNewAccount) => {
   return (dispatch) => {
-    dispatch(registerUserRequest());
-    console.log("registerUser", username, password, `${baseUrl[env]}/register`);
-    fetch(`${baseUrl[env]}/register`, {
+    dispatch(createOrLogInUserRequest());
+    console.log("createOrLogInUser", username, password, `${baseUrl[env]}/${createOrLogInPath[createNewAccount]}`);
+    fetch(`${baseUrl[env]}/${createOrLogInPath[createNewAccount]}`, {
       method: 'POST', 
       headers: new Headers({
         'Content-Type': 'application/json'
       }),
-      body: JSON.stringify({username, password})
+      body: JSON.stringify({username, password},)
     })
     .then(res => {
       if (!res.ok) {
@@ -75,8 +79,8 @@ export const registerUser = (username, password) => {
       } 
       return res.json();
     })
-    .then(user => dispatch(registerUserSuccess(user)))
-    .catch(error => dispatch(registerUserFailure(error)))
+    .then(user => dispatch(createOrLogInUserSuccess(user)))
+    .catch(error => dispatch(createOrLogInUserFailure(error)))
   };
 }
 
