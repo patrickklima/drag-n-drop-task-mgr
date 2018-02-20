@@ -15,6 +15,9 @@ module.exports = (app) => {
       }
     )
   });
+  app.get('/authenticate', 
+    passport.authenticate('local'),
+    (req, res, next) => res.sendStatus(200));
 
 
 }

@@ -1,33 +1,66 @@
 import React, { Component } from 'react';
-// import {
-//   NavLink, 
-//   BrowserRouter as Router, 
-//   Switch, 
-//   Route
-// } from 'react-router-dom';
-// import App from '../components/App';
+import { connect } from 'react-redux';
+import {
+  NavLink, 
+  BrowserRouter as Router, 
+  Switch, 
+  Route
+} from 'react-router-dom';
+import Paper from 'material-ui/Paper';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import {getAuth} from '../actions/UserActions'
 import BoardContainer from './BoardContainer';
+import RegistrationContainer from './RegistrationContainer';
+import LoginContainer from './LoginContainer';
 
-const App = () =>  {
-  console.log("Inside the App");
-  return (
-    <MuiThemeProvider>
-      <BoardContainer id={'5a7a572d638fed00a56629f9'}/>
-    </MuiThemeProvider>
-  );
+
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.user
+  };
 };
-
-
+const mapDisptachToProps = (dispatch) => {
+  return {
+    getAuth: () => dispatch(getAuth())
+  }
+};
 class AppContainer extends Component {
-
   render() {
+    const Boards = () => {
+      return (
+          <BoardContainer id={'5a7a572d638fed00a56629f9'}/>
+      );
+    }
+
+    
+    const RegisterOrLogin = () => {
+      return (
+        <Paper zdepth={2}>
+          <div>
+            <RegistrationContainer />
+            <LoginContainer />
+          </div>
+        </Paper>
+      );
+    }
+    
+    const Home = () => {
+      // this.props.getAuth();
+       return this.props.user.hasAuth ? <Boards /> : <RegisterOrLogin />;
+    }
     return (
-      // <Router>
-      <App />
-      // </Router>
+      <MuiThemeProvider>
+        <Router>
+          <Switch>
+            <Route exact path='/' component={Home} />
+
+            
+          </Switch>
+        </Router>
+      </MuiThemeProvider>
     );
   }
 }
 
-export default AppContainer;
+export default connect(mapStateToProps, mapDisptachToProps)(AppContainer);

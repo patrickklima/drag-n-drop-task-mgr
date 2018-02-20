@@ -1,15 +1,24 @@
 import {combineReducers} from 'redux';
 import * as BoardActions from './actions/BoardActions';
+import * as UserActions from './actions/UserActions';
 
-const initialState = {
+const initial = {
+  board: {
     _id: '5a7a572d638fed00a56629f9',
     boardTitle: '',
     lists: {},
     cards: {},
     isFetching: false, 
     error: null
-};
-
+  },
+  user: {
+    _id: '',
+    isFetching: false,
+    hasAuth: false,
+    boards: [],
+    error: null
+  }
+}
 const normalizeState = (boardData) => {
   console.log("normalizeState");
   let allCards = {};
@@ -34,7 +43,7 @@ const normalizeState = (boardData) => {
   };
 }
 
-const board = (state=initialState, action) => {
+const board = (state=initial.board, action) => {
   switch (action.type) {
     case BoardActions.GET_BOARD_SUCCESS:
       console.log("reducer", "BoardActions.GET_BOARD_SUCCESS", action);
@@ -63,7 +72,32 @@ const board = (state=initialState, action) => {
       return state;
   }
 }
-// const lists = (state=initialState.lists) => {
-//   return state;
-// }
-export default combineReducers({board});
+
+const user = (state=initial.user, action) => {
+  switch (action.type) {
+    case UserActions.REGISTER_USER_REQUEST: 
+    case UserActions.GET_AUTH_REQUEST: 
+      return {
+        ...state,
+        isFetching: true
+      };
+    case UserActions.REGISTER_USER_SUCCESS:
+    case UserActions.GET_AUTH_SUCCESS: 
+      return {
+        ...state,
+        hasAuth: true,
+        isFetching: false
+      };
+    case UserActions.REGISTER_USER_FAILURE:
+    case UserActions.GET_AUTH_FAILURE: 
+      return {
+        ...state,
+        hasAuth: false,
+        isFetching: false,
+        error: action.data
+      };
+    default: 
+      return state;
+  };
+}
+export default combineReducers({board, user});
