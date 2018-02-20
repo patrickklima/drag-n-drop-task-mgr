@@ -47,13 +47,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 const expressSession = require("express-session");
 app.use(
   expressSession({
+    name: 'Djello',
     secret: process.env.secret || "keyboard cat",
     saveUninitialized: false,
-    resave: false
+    resave: false,
+    cookie: { secure: true }
   })
 );
 
-// PASSPORT-LOCAL STRATEGY
+// PASSPORT-LOCAL STRATEGY & PASSPORT-LOCAL-MONGOOSE
 // ----------
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
@@ -61,7 +63,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 var User = require('./data/models/user');
-passport.use(new LocalStrategy(User.authenticate()));
+passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
@@ -86,6 +88,7 @@ app.use((req, res, next) => {
 // SERVICES
 // ----------
 require('./services/create-user-service')(app);
+require('./services/login-service')(app);
 const {getBoardAndLists, updateAnyDoc} = require('./services/data-service');
 
 
@@ -120,7 +123,7 @@ app.put('/:type/:id', (req, res, next) => {
 // ERROR HANDLING
 // ----------
 app.use((err, req, res, next) => {
-  console.error("Error: ", err.stack);
+  console.error("Error: ", err.message, err.stack);
   res.status(err.response ? err.response.status : 500);
   res.json({ error: err.message });
 });

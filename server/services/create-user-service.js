@@ -8,6 +8,7 @@ module.exports = (app) => {
       req.body.password,
       (err, user) => {
         if (err) {
+          err.response.status == '403';
           return next(err);
         }
         passport.authenticate('local');
@@ -15,9 +16,7 @@ module.exports = (app) => {
       }
     )
   });
-  app.get('/authenticate', 
-    passport.authenticate('local'),
-    (req, res, next) => res.sendStatus(200));
+  
 
 
 }

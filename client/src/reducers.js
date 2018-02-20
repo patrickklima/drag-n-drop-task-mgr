@@ -98,6 +98,6 @@ const user = (state=initial.user, action) => {
       };
     default: 
       return state;
-  };
+  }
 }
 export default combineReducers({board, user});

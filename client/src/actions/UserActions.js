@@ -69,7 +69,7 @@ export const createOrLogInUser = (username, password, createNewAccount) => {
     fetch(`${baseUrl[env]}/${createOrLogInPath[createNewAccount]}`, {
       method: 'POST', 
       headers: new Headers({
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       }),
       body: JSON.stringify({username, password},)
     })
