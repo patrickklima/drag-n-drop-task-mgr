@@ -45,7 +45,7 @@ export default ({storeEntry, createNewAccount, toggleCreateNewAccount, sendUserI
         label={createNewAccount ? "Create Account" : "Log In"} 
         primary={true} 
         style={style.button} 
-        onClick={() => sendUserInfo(username, password, createNewAccount)}
+        onClick={(e) => sendUserInfo(e, username, password, createNewAccount)}
       />
     </div>
   );

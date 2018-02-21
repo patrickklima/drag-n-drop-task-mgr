@@ -21,14 +21,14 @@ const mapStateToProps = (state) => {
 };
 const mapDisptachToProps = (dispatch) => {
   return {
-    getAuth: () => dispatch(getAuth())
+    // getAuth: () => dispatch(getAuth())
   }
 };
 class AppContainer extends Component {
   render() {
     const Boards = () => {
       return (
-          <BoardContainer id={'5a7a572d638fed00a56629f9'}/>
+          <BoardContainer id={'5a8db69a89648e046f03751d'}/>
       );
     }
 

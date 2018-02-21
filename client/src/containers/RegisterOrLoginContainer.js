@@ -8,7 +8,10 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    sendUserInfo: (username, password, createNewAccount) => dispatch(sendUserInfo(username, password, createNewAccount)),
+    sendUserInfo: (e, username, password, createNewAccount) => {
+      e.preventDefault();
+      dispatch(sendUserInfo(username, password, createNewAccount))
+    },
   }
 };
 class RegistrationContainer extends Component {

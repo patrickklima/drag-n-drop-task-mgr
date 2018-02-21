@@ -1,13 +1,20 @@
-const model = require('../data/models');
+const models = require('../data/models');
 
-var data = {
-  getBoardAndLists: (id) => model.Board.getBoardAndLists(id),
+module.exports = {
+  getBoardAndLists: (id) => {
+    return models.Board.getBoardAndLists(id)
+    .then(board => {
+      console.log(board)
+      return board;
+    });
+  },
   updateAnyDoc: (modelType, id, data, boardId) => {
     console.log("updateAnyDoc", modelType, id, data, boardId);
-    return model[modelType].updateOne(id, data)
-    .then(() => model.Board.getBoardAndLists(boardId))
+    return models[modelType].updateOne(id, data)
+    .then(() => models.Board.getBoardAndLists(boardId))
     .catch(e => console.log(e));
   },
+  getFullUserById: (id) => models.User.getFullUserById(id),
+  getFullUserByUserName: (username) => models.User.getFullUserByUserName(username),
 };
 
-module.exports = data;

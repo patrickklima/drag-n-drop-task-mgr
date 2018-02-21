@@ -3,7 +3,8 @@ const Schema = mongoose.Schema;
 
 var BoardSchema = new Schema({
   boardTitle: String,
-  lists: [{type: Schema.Types.ObjectId, ref: 'List'}]
+  lists: [{type: Schema.Types.ObjectId, ref: 'List'}],
+  members: [{type: Schema.Types.ObjectId, ref: 'User'}],
 }, {
   timestamps: true
 });

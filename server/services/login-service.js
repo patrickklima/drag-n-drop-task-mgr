@@ -1,11 +1,11 @@
 const passport = require('passport');
-const {User} = require('../data/models');
+const {getFullUserById, getFullUserByUserName} = require('./data-service');
 
 module.exports = (app) => {
   app.post('/login', 
     passport.authenticate('local'), 
     (req, res, next) => {
-      User.findOne({'username': req.body.username})
+      getFullUserByUserName(req.body.username)
       .then(user => {
         res.json(JSON.stringify(user))
       })
