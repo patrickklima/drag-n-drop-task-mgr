@@ -1,5 +1,8 @@
 const models = require('../data/models');
 
+
+
+
 module.exports = {
   getBoardAndLists: (id) => {
     return models.Board.getBoardAndLists(id)
@@ -15,6 +18,12 @@ module.exports = {
     .catch(e => console.log(e));
   },
   getFullUserById: (id) => models.User.getFullUserById(id),
-  getFullUserByUserName: (username) => models.User.getFullUserByUserName(username),
+  getFullUserByUserName: (username) => {
+    return models.User.getFullUserByUserName(username)
+    .then(user => {
+      console.log("getFullUserByUserName", user)
+      return user;
+    })
+  },
 };
 

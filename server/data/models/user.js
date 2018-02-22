@@ -7,7 +7,9 @@ var UserSchema = new Schema({
   username: String,
   password: String
 }, {
-  timestamps: true
+  timestamps: true,
+  toJSON: { getters: true, virtuals: true },
+  toObject: { getters: true, virtuals: true } 
 });
 
 UserSchema.virtual('boards', {
@@ -27,15 +29,17 @@ UserSchema.virtual('cards', {
 UserSchema.statics.getFullUserById = (_id) => {
   return User
     .find({_id})
-    .populate('boards')
-    .populate('cards');
+    .populate({path: 'boards', select: 'boardTitle'})
+    .populate({path: 'cards', select: 'cardTitle'});
 }
 
 UserSchema.statics.getFullUserByUserName = (username) => {
   return User
     .find({username})
-    .populate('boards')
-    .populate('cards');
+    // .populate('boards')
+    // .populate('cards');
+    .populate({path: 'boards', select: 'boardTitle'})
+    .populate({path: 'cards', select: 'cardTitle'});
 }
 
 UserSchema.plugin(passportLocalMongoose);

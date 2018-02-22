@@ -38,7 +38,7 @@ export const createOrLogInUser = (username, password, createNewAccount) => {
       } 
       return res.json();
     })
-    .then(user => dispatch(createOrLogInUserSuccess(user)))
+    .then(user => dispatch(createOrLogInUserSuccess(user[0])))
     .catch(error => dispatch(createOrLogInUserFailure(error)))
   };
 }

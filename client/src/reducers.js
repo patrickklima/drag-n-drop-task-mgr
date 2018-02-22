@@ -16,11 +16,12 @@ const initial = {
     isFetching: false,
     hasAuth: false,
     boards: [],
+    cards: [],
     error: null
   }
 }
-const normalizeState = (boardData) => {
-  console.log("normalizeState");
+const normalizeBoardState = (boardData) => {
+  console.log("normalizeBoardState");
   let allCards = {};
   let allLists = boardData.lists.reduce((lists, thisList) => { 
     console.log("thisList", thisList);
@@ -49,7 +50,7 @@ const board = (state=initial.board, action) => {
       console.log("reducer", "BoardActions.GET_BOARD_SUCCESS", action);
     case BoardActions.UPDATE_BOARD_SUCCESS:
       console.log("reducer", "BoardActions.UPDATE_BOARD_SUCCESS", action);
-      const {_id, boardTitle, lists, cards} = normalizeState(action.data);
+      const {_id, boardTitle, lists, cards} = normalizeBoardState(action.data);
       return {
         _id,
         boardTitle,
@@ -77,6 +78,7 @@ const board = (state=initial.board, action) => {
   }
 }
 
+
 const user = (state=initial.user, action) => {
   switch (action.type) {
     case UserActions.CREATE_OR_LOG_IN_USER_REQUEST: 
@@ -89,8 +91,11 @@ const user = (state=initial.user, action) => {
     case UserActions.GET_AUTH_SUCCESS: 
       return {
         ...state,
+        boards: action.data.boards, 
+        cards: action.data.cards, 
         hasAuth: true,
-        isFetching: false
+        isFetching: false, 
+
       };
     case UserActions.CREATE_OR_LOG_IN_USER_FAILURE:
     case UserActions.GET_AUTH_FAILURE: 
