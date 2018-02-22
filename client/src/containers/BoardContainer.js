@@ -24,7 +24,7 @@ class BoardContainer extends Component {
     super(props);
     this.state = {
       type: 'Board',
-      receivedId: props.id, 
+      receivedId: props.id,  
       displayedTitle: this.props.boardTitle || '',
       buttonShow: false
     };
@@ -33,7 +33,7 @@ class BoardContainer extends Component {
   componentDidMount = () => {
     console.log("componentDidMount");
     // this.props.getBoard(this.state.receivedId);
-    this.props.getBoard(this.props.boardId);
+    this.props.getBoard(this.state.receivedId);
   }
 
   componentDidUpdate(prevProps, prevState) {
