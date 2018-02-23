@@ -4,7 +4,7 @@ import * as UserActions from './actions/UserActions';
 
 const initial = {
   board: {
-    _id: '5a7a572d638fed00a56629f9',
+    _id: '',
     boardTitle: '',
     lists: {},
     cards: {},
@@ -50,6 +50,8 @@ const board = (state=initial.board, action) => {
       console.log("reducer", "BoardActions.GET_BOARD_SUCCESS", action);
     case BoardActions.UPDATE_BOARD_SUCCESS:
       console.log("reducer", "BoardActions.UPDATE_BOARD_SUCCESS", action);
+    case BoardActions.ADD_NEW_LIST_OR_CARD_SUCCESS:
+      console.log("reducer", "BoardActions.ADD_NEW_LIST_OR_CARD_SUCCESS", action);
       const {_id, boardTitle, lists, cards} = normalizeBoardState(action.data);
       return {
         _id,
@@ -61,6 +63,7 @@ const board = (state=initial.board, action) => {
       };
     case BoardActions.GET_BOARD_FAILURE: 
     case BoardActions.UPDATE_BOARD_FAILURE: 
+    case BoardActions.ADD_NEW_LIST_OR_CARD_FAILURE: 
       return {
         ...state,
         error: action.data,
@@ -68,6 +71,7 @@ const board = (state=initial.board, action) => {
       };
     case BoardActions.GET_BOARD_REQUEST:
     case BoardActions.UPDATE_BOARD_REQUEST:
+    case BoardActions.ADD_NEW_LIST_OR_CARD_REQUEST:
       return {
         ...state,
         isFetching: true,
