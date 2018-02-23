@@ -1,10 +1,32 @@
 import React from 'react';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
+import {ListItem} from 'material-ui/List';
 import CardContainer from '../containers/CardContainer';
 
-export default ({list, displayedTitle, onChangeTextField, buttonShow, saveChanges, cancelChanges}) =>  {
-  
+export default ({
+  list, 
+  displayedTitle, 
+  newCardTitle, 
+  onChangeTextField, 
+  changingTitle, 
+  addingNewCard, 
+  saveChanges, 
+  cancelChanges
+}) =>  {
+  const style = {
+    displayedTitle: {
+      fontSize: 28,
+      fontWeight: 'bold',
+      textTransform: 'capitalize'
+    },
+    newCardTitle: {
+      fontSize: 16,
+      fontWeight: 'bold',
+      textTransform: 'capitalize'
+    }
+  }; 
+
   const cardMap = list.cards.map(cardId => {
     console.log("cardMap", cardId);
     return (
@@ -13,7 +35,7 @@ export default ({list, displayedTitle, onChangeTextField, buttonShow, saveChange
       </div>
     );
   });
-  const buttons = [
+  const saveCancelButtons = [
     <FlatButton
       key="Save"
       label="Save"
@@ -26,27 +48,30 @@ export default ({list, displayedTitle, onChangeTextField, buttonShow, saveChange
       secondary={true}
       onClick={cancelChanges}
     />
-  ]
+  ];
 
-  const style = {
-    listTitle: {
-      fontSize: 28,
-      fontWeight: 'bold',
-      textTransform: 'capitalize'
-    }
-  }; 
   return (
-    
     <div >
       <TextField
         value={displayedTitle}
-        name='listTitle'
-        inputStyle={style.listTitle}
+        name='displayedTitle'
+        inputStyle={style.displayedTitle}
         underlineShow={false}
         onChange={onChangeTextField}
       />
-      {buttonShow && buttons}
+      {changingTitle && saveCancelButtons}
       {cardMap}
+      <ListItem>
+        <TextField
+          value={newCardTitle}
+          hintText='Add a new card...'
+          name='newCardTitle'
+          inputStyle={style.textField}
+          underlineShow={false}
+          onChange={onChangeTextField}
+        />
+      </ListItem>
+      {addingNewCard && saveCancelButtons}
     </div>
   );
 };

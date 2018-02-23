@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import List from '../components/List';
-import {updateBoard} from '../actions/BoardActions';
+import {updateBoard, addNewCard} from '../actions/BoardActions';
 
 
 const mapStateToProps = (state, ownProps) => {
@@ -16,7 +16,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateBoard: (type, id, data, boardId) => dispatch(updateBoard(type, id, data, boardId))
+    updateBoard: (type, id, data, boardId) => dispatch(updateBoard(type, id, data, boardId)),
+    addNewCard: (newCardTitle, listId, boardId) => dispatch(addNewCard(newCardTitle, listId, boardId)),
   }
 }
 
@@ -27,27 +28,48 @@ class ListContainer extends Component {
     this.state = {
       type: 'List',
       displayedTitle: this.props.list.listTitle,
-      buttonShow: false
+      changingTitle: false,
+      newCardTitle: '',
+      addingNewCard: false
     };
   }
-  
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.list.listTitle !== this.props.list.listTitle) {
+      this.setState({displayedTitle: this.props.list.listTitle});
+    }
+  }
   onChangeTextField = (e, newValue) => {
-    console.log("onChangeTextField - target", e.target);
-    this.setState({
-      displayedTitle: newValue,
-      buttonShow: true
-    });
+    let newState = {
+      [e.target.name]: newValue,
+    }
+    e.target.name==='displayedTitle' ? 
+      newState.changingTitle = true : 
+      newState.addingNewCard = true;
+    this.setState(newState);
   }
   saveChanges = (e) => {
-    const {type, displayedTitle} = this.state;
+    const {type, displayedTitle, newCardTitle, changingTitle, addingNewCard} = this.state;
     const {listId, boardId} = this.props;
-    this.props.updateBoard(type, listId, {listTitle: displayedTitle}, boardId);
-    this.setState({buttonShow: false})
+    if (changingTitle) {
+      this.props.updateBoard(type, listId, {listTitle: displayedTitle}, boardId); 
+      this.setState({
+        changingTitle: false,
+      });
+    }
+    if (addingNewCard) {
+      this.props.addNewCard(newCardTitle, listId, boardId);
+      this.setState({
+        addingNewCard: false,
+        newCardTitle: ''
+      });
+    }
   }
   cancelChanges = (e) => {
     this.setState({
       displayedTitle: this.props.list.listTitle,
-      buttonShow: false
+      newCardTitle: '',
+      changingTitle: false,
+      addingNewCard: false,
     })
   }
   
@@ -58,8 +80,10 @@ class ListContainer extends Component {
         <List
           list={this.props.list}
           displayedTitle={this.state.displayedTitle}
+          newCardTitle={this.state.newCardTitle}
           onChangeTextField={this.onChangeTextField}
-          buttonShow={this.state.buttonShow}
+          changingTitle={this.state.changingTitle}
+          addingNewCard={this.state.addingNewCard}
           saveChanges={this.saveChanges}
           cancelChanges={this.cancelChanges}
         />
