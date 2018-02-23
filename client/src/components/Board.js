@@ -6,7 +6,17 @@ import {List as MaterialList} from 'material-ui/List';
 import ListContainer from '../containers/ListContainer';
 // import DjelloList from './List';
 
-export default ({board, displayedTitle, listIds, onChangeTextField, buttonShow, saveChanges, cancelChanges}) => {
+export default ({
+  board, 
+  displayedTitle, 
+  listIds, 
+  newListTitle, 
+  onChangeTextField, 
+  changingTitle, 
+  addingNewList, 
+  saveChanges, 
+  cancelChanges
+}) => {
   console.log("starting board: ", board);
   const listMap = listIds.map(listId => {
     console.log("list", listId);
@@ -17,7 +27,7 @@ export default ({board, displayedTitle, listIds, onChangeTextField, buttonShow, 
     );
   });
   
-  const buttons = [
+  const saveCancelButtons = [
     <FlatButton
       key="Save"
       label="Save"
@@ -42,20 +52,35 @@ export default ({board, displayedTitle, listIds, onChangeTextField, buttonShow, 
       display: 'flex',
       flexWrap: 'wrap',
     },
+    newListTitle: {
+      fontSize: 28,
+      fontWeight: 'bold',
+      textTransform: 'capitalize'
+    }
   };
 
 return (
   <Paper zdepth={2}>
     <TextField
       value={displayedTitle}
-      name='boardTitle'
+      name='displayedTitle'
       inputStyle={style.boardTitle}
       underlineShow={false}
       onChange={onChangeTextField}
     />
-    {buttonShow && buttons}
+    {changingTitle && saveCancelButtons}
+
     <div style={style.listLayout}>
       {listMap}
+      <TextField
+        value={newListTitle}
+        hintText='Add a new list...'
+        name='newListTitle'
+        inputStyle={style.newListTitle}
+        underlineShow={false}
+        onChange={onChangeTextField}
+      />
+      {addingNewList && saveCancelButtons}
     </div>
   </Paper>
   );

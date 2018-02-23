@@ -1,21 +1,23 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import Board from '../components/Board';
-import {getBoard, updateBoard} from '../actions/BoardActions';
+import {getBoard, updateBoard, addNewList} from '../actions/BoardActions';
 
 const mapStateToProps = (state, ownProps) => {
-  console.log("BoardContainer - mapStateToProps", state);
+  const {id} = ownProps;
+  const {board} = state;
   return {
-    board: state.board,
-    listIds: Object.keys(state.board.lists),
-    boardId: ownProps.id
+    board,
+    listIds: Object.keys(board.lists),
+    boardId: id
   };
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     getBoard: (id) => dispatch(getBoard(id)),
-    updateBoard: (type, id, data, boardId) => dispatch(updateBoard(type, id, data, boardId))
+    updateBoard: (type, id, data, boardId) => dispatch(updateBoard(type, id, data, boardId)),
+    addNewList: (listTitle, boardId) => dispatch(addNewList(listTitle, boardId))
   }
 }
 
@@ -26,7 +28,9 @@ class BoardContainer extends Component {
       type: 'Board',
       receivedId: props.id,  
       displayedTitle: this.props.boardTitle || '',
-      buttonShow: false
+      changingTitle: false,
+      newListTitle: '',
+      addingNewList: false
     };
   }
   
@@ -38,31 +42,43 @@ class BoardContainer extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.board.boardTitle !== this.props.board.boardTitle) {
-      this.setState({
-        displayedTitle: this.props.board.boardTitle
-      })
+      this.setState({displayedTitle: this.props.board.boardTitle});
     }
   }
   
   
   onChangeTextField = (e, newValue) => {
-    console.log("onChangeTextField - target", e.target);
-    this.setState({
-      displayedTitle: newValue,
-      buttonShow: true
-    });
+    let newState = {
+      [e.target.name]: newValue
+    }
+    e.target.name==='displayedTitle' ? 
+      newState.changingTitle = true : 
+      newState.addingNewList = true;
+    this.setState(newState);
   }
   saveChanges = (e) => {
-    const {type, displayedTitle} = this.state;
+    const {type, displayedTitle, newListTitle, changingTitle, addingNewList} = this.state;
     const {boardId} = this.props;
-    console.log("saveChanges", displayedTitle)
-    this.props.updateBoard(type, boardId, {boardTitle: displayedTitle}, boardId);
-    this.setState({buttonShow: false})
+    if (changingTitle) {
+      this.props.updateBoard(type, boardId, {boardTitle: displayedTitle}, boardId);
+      this.setState({
+        changingTitle: false,
+      });
+    }
+    if (addingNewList) {
+      this.props.addNewList(newListTitle, boardId);
+      this.setState({
+        addingNewCard: false,
+        newListTitle: ''
+      });
+    }
   }
   cancelChanges = (e) => {
     this.setState({
       displayedTitle: this.props.board.boardTitle,
-      buttonShow: false
+      newListTitle: '',
+      changingTitle: false,
+      addingNewList: false,
     })
   }
 
@@ -73,8 +89,10 @@ class BoardContainer extends Component {
         board={this.props.board} 
         displayedTitle={this.state.displayedTitle}
         listIds={this.props.listIds} 
+        newListTitle={this.state.newListTitle}
         onChangeTextField={this.onChangeTextField}
-        buttonShow={this.state.buttonShow}
+        changingTitle={this.state.changingTitle}
+        addingNewList={this.state.addingNewList}
         saveChanges={this.saveChanges}
         cancelChanges={this.cancelChanges}
       />
