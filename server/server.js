@@ -89,36 +89,20 @@ app.use((req, res, next) => {
 // ----------
 require('./services/create-user-service')(app);
 require('./services/login-service')(app);
-const {getBoardAndLists, updateAnyDoc} = require('./services/data-service');
+
+
 
 
 // ROUTES
 // ----------
+const apiRoutes = require('./routes/api-routes');
+app.use('/api', apiRoutes);
+
 app.get('/', (req, res) => {
   res.send('hello world');
 });
 
-app.get('/boards/:id', (req, res, next) => {
-  console.log("boards - received request")
-  getBoardAndLists(req.params.id)
-  .then(data => {
-    console.log("Boards - sending data",data)
-    res.json(data)})
-  .catch(e => next(e));
-});
 
-app.put('/:type/:id', (req, res, next) => {
-  const {type, id} = req.params;
-  const {data, boardId} = req.body;
-  console.log("updateAnyDoc", updateAnyDoc);
-  updateAnyDoc(type, id, data, boardId)
-  .then(response => {
-    console.log(`update ${type} - sending response`,response);
-    return response;
-  })
-  .then(response => res.json(response))
-  .catch(err => next(err));
-});
 
 // ERROR HANDLING
 // ----------
