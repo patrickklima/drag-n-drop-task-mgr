@@ -3,6 +3,7 @@ const models = require('../models');
 var env = process.env.NODE_ENV || 'development';
 var config = require('../config/mongo')[env];
 const mongooseeder = require('mongooseeder');
+const faker = require('faker');
 
 const {
   User,
@@ -37,8 +38,8 @@ const seeds = () => {
     const cardFactory = (cardName) => {
       return new Card({
         cardTitle: cardName, 
-        description: cardName,
-        members: [users[Math.floor(Math.random()*users.length)]._id],
+        description: cardName+" "+faker.lorem.paragraph(),
+        members: users.map((user, i) => {if (i > 2) return user._id }),
         changes:[]
       });
     };
@@ -55,7 +56,7 @@ const seeds = () => {
       return new Board({
         boardTitle: title,
         lists: arrayOfLists.map(list => list._id),
-        members: [users[Math.floor(Math.random()*users.length)]._id],
+        members: users.map((user, i) => {if (i < 2) return user._id }),
       });
     };
 

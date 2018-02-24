@@ -26,6 +26,7 @@
     "express": "^4.16.2",
     "express-flash": "0.0.2",
     "express-session": "^1.15.6",
+    "faker": "^4.1.0",
     "log4js": "^2.5.3",
     "material-ui": "^0.20.0",
     "mongoose": "^5.0.3",

@@ -3,9 +3,16 @@ import {ListItem} from 'material-ui/List';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
+import Divider from 'material-ui/Divider';
+import Chip from 'material-ui/Chip';
+import Checkbox from 'material-ui/Checkbox';
+
 export default ({
   cardTitle, 
   description, 
+  listTitle,
+  isCompleted,
+  toggleCompleted,
   isdialogOpen, 
   openDialog, 
   closeDialog,
@@ -29,7 +36,17 @@ export default ({
       fontSize: 18,
       fontWeight: 'bold',
       textTransform: 'capitalize'
-    }
+    },
+    listTitle: {
+      fontSize: 12,
+      textTransform: 'capitalize',
+      margin: 4,
+      display: 'inline-block',
+    }, 
+    checkbox: {
+      marginBottom: 16,
+      display: 'inline-block',
+    },
   }; 
   const cardDialog = 
       <div>
@@ -47,19 +64,33 @@ export default ({
             underlineShow={false}
             onChange={onChangeTextField}
           />
-        </div>
-        <div>
-          <TextField
-            defaultValue={description}
-            floatingLabelText="Description"
-            name='description'
-            multiLine={true}
-            rows={2}
-            rowsMax={6}
-            underlineShow={false}
-            onChange={onChangeTextField}
-          />
-        </div>
+          <div>
+            {'In list:'}
+            <Chip style={style.listTitle}>
+              {listTitle}
+            </Chip>
+            <Checkbox
+              label="Completed"
+              style={style.checkbox}
+              checked={isCompleted}
+              onCheck={toggleCompleted}
+            />
+          </div>
+          <Divider />
+          </div>
+          <div>
+            <TextField
+              defaultValue={description}
+              floatingLabelText="Description"
+              name='description'
+              multiLine={true}
+              rows={2}
+              rowsMax={6}
+              fullWidth={true}
+              underlineShow={false}
+              onChange={onChangeTextField}
+            />
+          </div>
         </Dialog>
       </div>
   return (

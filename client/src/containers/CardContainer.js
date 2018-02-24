@@ -10,6 +10,7 @@ const mapStateToProps = (state, ownProps) => {
   
   return {
     boardId: board._id,
+    list: board.lists[listId],
     card: cards[cardId],
     listId,
     cardId
@@ -77,9 +78,16 @@ class CardContainer extends Component {
   closeDialog = (e) => {
     this.setState({isdialogOpen: false});
   }
+  toggleCompleted = () => {
+    const {type} = this.state;
+    const {_id, isCompleted} = this.props.card;
+    const boardId = this.props.boardId;
+    this.props.updateBoard(type, _id, {isCompleted: !isCompleted}, boardId);
+  }
 
   render() {
-    const {cardTitle, description} = this.props.card;
+    const {cardTitle, description, isCompleted} = this.props.card;
+    const {listTitle} = this.props.list;
     console.log("CardContainer - cardID", this.props.cardId);
     console.log("CardContainer - card", this.props.card);
     
@@ -87,6 +95,9 @@ class CardContainer extends Component {
       <Card 
         cardTitle={cardTitle}
         description={description}
+        listTitle={listTitle}
+        isCompleted={isCompleted}
+        toggleCompleted={this.toggleCompleted}
         isdialogOpen={this.state.isdialogOpen}
         openDialog={this.openDialog}
         closeDialog={this.closeDialog}

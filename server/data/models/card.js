@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 var CardSchema = new Schema({
   cardTitle: String,
   description: String,
+  isCompleted: {type: Boolean, default: false},
   members: [{type: Schema.Types.ObjectId, ref: 'User'}],
   changes: Array
 }, {
