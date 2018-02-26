@@ -38,7 +38,7 @@ class MembersContainer extends Component {
     updateBoard('Card', cardId, {members: editedMembers}, boardId);
     this.setState({
       showButtons: false,
-      detetableMemberId: ''
+      detetableMemberId: '',
     })
   };
   keepMember = () => {

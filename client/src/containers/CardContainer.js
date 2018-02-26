@@ -31,11 +31,6 @@ class CardContainer extends Component {
       type: 'Card',
       isdialogOpen: false,
       inProgressChanges: {
-        title: '',
-        description: '',
-        membersAdded: [],
-        membersRemoved: []
-
       }
     };
   }

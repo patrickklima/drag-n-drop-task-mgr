@@ -7,6 +7,7 @@ import Divider from 'material-ui/Divider';
 import Chip from 'material-ui/Chip';
 import Checkbox from 'material-ui/Checkbox';
 import MembersContainer from '../containers/MembersContainer';
+// import ChangesContainer from '../containers/ChangesContainer';
 
 export default ({
   cardTitle, 
