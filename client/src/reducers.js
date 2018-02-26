@@ -93,10 +93,13 @@ const user = (state=initial.user, action) => {
       };
     case UserActions.CREATE_OR_LOG_IN_USER_SUCCESS:
     case UserActions.GET_AUTH_SUCCESS: 
+      const {_id, username, boards, cards} = action.data;
       return {
         ...state,
-        boards: action.data.boards, 
-        cards: action.data.cards, 
+        _id,
+        username, 
+        boards, 
+        cards, 
         hasAuth: true,
         isFetching: false, 
 

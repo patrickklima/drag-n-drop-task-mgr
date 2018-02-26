@@ -6,9 +6,11 @@ import TextField from 'material-ui/TextField';
 import Divider from 'material-ui/Divider';
 import Chip from 'material-ui/Chip';
 import Checkbox from 'material-ui/Checkbox';
+import MembersContainer from '../containers/MembersContainer';
 
 export default ({
   cardTitle, 
+  cardId,
   description, 
   listTitle,
   isCompleted,
@@ -44,9 +46,12 @@ export default ({
       display: 'inline-block',
     }, 
     checkbox: {
-      marginBottom: 16,
       display: 'inline-block',
     },
+    divider: {
+      marginTop: 16,
+      marginBottom: 16,
+    }
   }; 
   const cardDialog = 
       <div>
@@ -76,23 +81,27 @@ export default ({
               onCheck={toggleCompleted}
             />
           </div>
-          <Divider />
-          </div>
-          <div>
-            <TextField
-              defaultValue={description}
-              floatingLabelText="Description"
-              name='description'
-              multiLine={true}
-              rows={2}
-              rowsMax={6}
-              fullWidth={true}
-              underlineShow={false}
-              onChange={onChangeTextField}
-            />
-          </div>
-        </Dialog>
       </div>
+      <Divider style={style.divider} />
+      <label>Users added to this card:</label>
+      <MembersContainer cardId={cardId}/>
+      <Divider style={style.divider} />
+      <div>
+        <label>Description:</label> 
+        <TextField
+          defaultValue={description}
+          name='description'
+          multiLine={true}
+          rows={2}
+          rowsMax={6}
+          fullWidth={true}
+          underlineShow={false}
+          onChange={onChangeTextField}
+        />
+      </div>
+      <Divider style={style.divider} />
+        </Dialog>
+  </div>;
   return (
     <div>
         <ListItem 

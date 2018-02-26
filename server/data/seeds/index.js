@@ -39,7 +39,7 @@ const seeds = () => {
       return new Card({
         cardTitle: cardName, 
         description: cardName+" "+faker.lorem.paragraph(),
-        members: users.map((user, i) => {if (i > 2) return user._id }),
+        members: users.filter(user => user.username === 'user3' || user.username === 'user4' || user.username === 'user5'),
         changes:[]
       });
     };
@@ -56,7 +56,7 @@ const seeds = () => {
       return new Board({
         boardTitle: title,
         lists: arrayOfLists.map(list => list._id),
-        members: users.map((user, i) => {if (i < 2) return user._id }),
+        members: users.filter(user => user.username === 'user1' || user.username === 'user2' ),
       });
     };
 

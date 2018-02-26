@@ -29,8 +29,6 @@ class CardContainer extends Component {
 
     this.state = {
       type: 'Card',
-      listId: listId,
-      _id: cardId,
       isdialogOpen: false,
       inProgressChanges: {
         title: '',
@@ -94,6 +92,7 @@ class CardContainer extends Component {
     return (
       <Card 
         cardTitle={cardTitle}
+        cardId={this.props.cardId}
         description={description}
         listTitle={listTitle}
         isCompleted={isCompleted}

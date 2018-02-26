@@ -14,7 +14,12 @@ BoardSchema.statics.getBoardAndLists = (_id) => {
     .find({_id})
     .populate({
       path: 'lists',
-      populate: {path: 'cards'}
+      populate: {
+        path: 'cards', 
+        populate: {
+          path: 'members'
+        }
+      }
     });
 };
 
