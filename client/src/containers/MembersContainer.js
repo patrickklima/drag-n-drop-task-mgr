@@ -2,14 +2,17 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Chip from 'material-ui/Chip';
 import FlatButton from 'material-ui/FlatButton';
-import {updateBoard} from '../actions/BoardActions'
+import {updateBoard} from '../actions/BoardActions';
+const moment = require('moment');
 
 const mapStateToProps = (state, ownProps) => {
-  const {cards, _id: boardId} = state.board;
+  const {cards, _id} = state.board;
   const {cardId} = ownProps;
   return {
+    username: state.user.username,
+    card: cards[cardId],
     members: cards[cardId].members,
-    boardId
+    boardId: _id
   };
 }
 const mapDispatchToProps = (dispatch) => {
@@ -22,29 +25,37 @@ class MembersContainer extends Component {
     super(props);
     this.state={
       showButtons: false,
-      detetableMemberId: ''
+      deletableMemberId: ''
     };
   }
-  onRequestDelete = (detetableMemberId) => {
+  onRequestDelete = (deletableMemberId) => {
     this.setState({
       showButtons: true,
-      detetableMemberId: detetableMemberId
+      deletableMemberId: deletableMemberId
     })
   };
   deleteMember = () => {
-    const {members, updateBoard, cardId, boardId} = this.props;
-    const {detetableMemberId} = this.state;
-    const editedMembers = members.filter(member => member._id !== detetableMemberId);
-    updateBoard('Card', cardId, {members: editedMembers}, boardId);
+    const {username, card, members, updateBoard, cardId, boardId} = this.props;
+    const {deletableMemberId} = this.state;
+    const editedMembers = members.filter(member => member._id !== deletableMemberId);
+    const newCardState = {
+      members: editedMembers,
+      changes: [...card.changes, {
+          removedMember: deletableMemberId, 
+          username: username,
+          date: moment()
+        }]
+    }
+    updateBoard('Card', cardId, newCardState, boardId);
     this.setState({
       showButtons: false,
-      detetableMemberId: '',
+      deletableMemberId: '',
     })
   };
   keepMember = () => {
     this.setState({
       showButtons: false,
-      detetableMemberId: ''
+      deletableMemberId: ''
     })
   };
   render() {
