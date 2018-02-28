@@ -5,11 +5,12 @@ import Card from '../components/Card';
 const moment = require('moment');
 
 const mapStateToProps = (state, ownProps) => {
-  const {board, board: {cards}} = state;
+  const {board, user, board: {cards}} = state;
   const {listId, cardId} = ownProps;
   
   return {
     boardId: board._id,
+    username: user.username,
     list: board.lists[listId],
     card: cards[cardId],
     listId,
@@ -38,9 +39,18 @@ class CardContainer extends Component {
     this.setState({
       inProgressChanges: {
         ...this.state.inProgressChanges,
-        [e.target.name]: newValue
+        [e.target.name]: newValue, 
       }
     });
+  }
+  toggleCompleted = () => {
+    const {isCompleted} = this.props.card;
+    this.setState({
+      inProgressChanges: {
+        ...this.state.inProgressChanges,
+        isCompleted: !isCompleted
+      }
+    }); 
   }
   okToSaveChanges = (e, okToSave) => {
     const {type, inProgressChanges} = this.state;
@@ -53,6 +63,7 @@ class CardContainer extends Component {
         ...inProgressChanges
       };
       inProgressChanges.date = moment();
+      inProgressChanges.username = this.props.username;
       newState.changes = [
         ...changes,
         inProgressChanges
@@ -71,15 +82,11 @@ class CardContainer extends Component {
   closeDialog = (e) => {
     this.setState({isdialogOpen: false});
   }
-  toggleCompleted = () => {
-    const {type} = this.state;
-    const {_id, isCompleted} = this.props.card;
-    const boardId = this.props.boardId;
-    this.props.updateBoard(type, _id, {isCompleted: !isCompleted}, boardId);
-  }
+  
+  
 
   render() {
-    const {cardTitle, description, isCompleted} = this.props.card;
+    const {cardTitle, description, isCompleted, changes} = this.props.card;
     const {listTitle} = this.props.list;
     console.log("CardContainer - cardID", this.props.cardId);
     console.log("CardContainer - card", this.props.card);
@@ -97,6 +104,7 @@ class CardContainer extends Component {
         closeDialog={this.closeDialog}
         onChangeTextField={this.onChangeTextField}
         okToSaveChanges={this.okToSaveChanges}
+        changes={changes}
       />
     );
   };

@@ -7,7 +7,7 @@ import Divider from 'material-ui/Divider';
 import Chip from 'material-ui/Chip';
 import Checkbox from 'material-ui/Checkbox';
 import MembersContainer from '../containers/MembersContainer';
-// import ChangesContainer from '../containers/ChangesContainer';
+import CardChanges from './CardChanges';
 
 export default ({
   cardTitle, 
@@ -20,7 +20,8 @@ export default ({
   openDialog, 
   closeDialog,
   onChangeTextField, 
-  okToSaveChanges, 
+  okToSaveChanges,
+  changes,
 }) => {
   const buttons = [
     <FlatButton
@@ -78,7 +79,7 @@ export default ({
             <Checkbox
               label="Completed"
               style={style.checkbox}
-              checked={isCompleted}
+              defaultChecked={isCompleted}
               onCheck={toggleCompleted}
             />
           </div>
@@ -101,7 +102,8 @@ export default ({
         />
       </div>
       <Divider style={style.divider} />
-        </Dialog>
+      <CardChanges changes={changes}/>
+    </Dialog>
   </div>;
   return (
     <div>
