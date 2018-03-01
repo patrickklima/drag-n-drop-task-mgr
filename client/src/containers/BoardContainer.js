@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import Board from '../components/Board';
 import {getBoard, updateBoard, addNewList} from '../actions/BoardActions';
+var dragula = require('react-dragula');
 
 const mapStateToProps = (state, ownProps) => {
   const {id} = ownProps;
@@ -36,7 +37,6 @@ class BoardContainer extends Component {
   
   componentDidMount = () => {
     console.log("componentDidMount");
-    // this.props.getBoard(this.state.receivedId);
     this.props.getBoard(this.state.receivedId);
   }
 

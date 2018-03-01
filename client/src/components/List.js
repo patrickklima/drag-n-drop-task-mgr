@@ -5,6 +5,7 @@ import {ListItem} from 'material-ui/List';
 import CardContainer from '../containers/CardContainer';
 
 export default ({
+  dragulaDecorator,
   list, 
   displayedTitle, 
   newCardTitle, 
@@ -30,9 +31,7 @@ export default ({
   const cardMap = list.cards.map(cardId => {
     console.log("cardMap", cardId);
     return (
-      <div key={cardId}>
-        <CardContainer cardId={cardId} listId={list._id}/>
-      </div>
+      <CardContainer key={cardId} cardId={cardId} listId={list._id}/>
     );
   });
   const saveCancelButtons = [
@@ -60,7 +59,9 @@ export default ({
         onChange={onChangeTextField}
       />
       {changingTitle && saveCancelButtons}
-      {cardMap}
+      <div className='container' ref={dragulaDecorator}>
+        {cardMap}
+      </div>
       <ListItem>
         <TextField
           value={newCardTitle}
