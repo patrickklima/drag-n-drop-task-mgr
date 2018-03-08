@@ -11,7 +11,11 @@ export const getAuth = () => {
   return (dispatch) => {
     dispatch(getAuthRequest());
     
-    fetch(`${baseUrl[env]}/authenticate`)
+    fetch(`${baseUrl[env]}/authenticate`, {
+      method: 'GET', 
+      credentials: 'include',
+      mode: 'cors',
+    })
     .then(res => {
       if (!res.ok) {
         dispatch(getAuthFailure(res.error()));
@@ -27,6 +31,8 @@ export const createOrLogInUser = (username, password, createNewAccount) => {
     console.log("createOrLogInUser", username, password, `${baseUrl[env]}/${createOrLogInPath[createNewAccount]}`);
     fetch(`${baseUrl[env]}/${createOrLogInPath[createNewAccount]}`, {
       method: 'POST', 
+      credentials: 'include',
+      mode: 'cors',
       headers: new Headers({
         'Content-Type': 'application/json',
       }),

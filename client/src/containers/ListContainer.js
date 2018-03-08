@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import List from '../components/List';
+import {DropTarget} from 'react-dnd';
 import {updateBoard, addNewCard} from '../actions/BoardActions';
 
 
@@ -21,6 +22,19 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
+const cardTarget = {
+  drop() {
+    return {name: 'List'};
+  }
+}
+
+const collect = (connect, monitor) => {
+  return {
+    highlighted: monitor.canDrop(),
+    hovered: monitor.isOver(),
+    connectDropTarget: connect.dropTarget()
+  };
+}
 
 class ListContainer extends Component {
   constructor(props) {
@@ -72,18 +86,20 @@ class ListContainer extends Component {
       addingNewCard: false,
     })
   }
-  
+
   render() {
+    const {displayedTitle, newCardTitle, changingTitle, addingNewCard} = this.state;
+    const {list, canDrop, isOver, connectDropTarget} = this.props;
     console.log("ListContainer", this.state);
-    return (
+    return connectDropTarget(
       <div>
         <List
-          list={this.props.list}
-          displayedTitle={this.state.displayedTitle}
-          newCardTitle={this.state.newCardTitle}
+          list={list}
+          displayedTitle={displayedTitle}
+          newCardTitle={newCardTitle}
           onChangeTextField={this.onChangeTextField}
-          changingTitle={this.state.changingTitle}
-          addingNewCard={this.state.addingNewCard}
+          changingTitle={changingTitle}
+          addingNewCard={addingNewCard}
           saveChanges={this.saveChanges}
           cancelChanges={this.cancelChanges}
         />
@@ -92,4 +108,5 @@ class ListContainer extends Component {
   }
 }
 
+ListContainer = DropTarget('Card', cardTarget, collect)(ListContainer);
 export default connect(mapStateToProps, mapDispatchToProps)(ListContainer);

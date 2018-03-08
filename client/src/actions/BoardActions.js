@@ -7,7 +7,11 @@ export const getBoard = (id) => {
   return (dispatch) => {
     dispatch(getBoardRequest())
     console.log("fetching: getBoard");
-    fetch(`${baseUrl[env]}/get/board/${id}`)
+    fetch(`${baseUrl[env]}/get/board/${id}`, {
+      method: 'GET', 
+      credentials: 'include',
+      mode: 'cors',
+    })
     .then(response => response.json())
     .then(json => {
       console.log("getBoard received data", json);
@@ -28,6 +32,8 @@ export const updateBoard = (type, id, data, boardId) => {
     fetch(`${baseUrl[env]}/put/${type}/${id}`, {
       method: 'PUT', 
       body: JSON.stringify({data, boardId}), 
+      credentials: 'include',
+      mode: 'cors',
       headers: new Headers({
         'Content-Type': 'application/json'
       })
@@ -50,6 +56,8 @@ export const addNewList = (listTitle, boardId) => {
     
     fetch(`${baseUrl[env]}/post/list`, {
       method: 'POST', 
+      credentials: 'include',
+      mode: 'cors',
       body: JSON.stringify({listTitle, boardId}), 
       headers: new Headers({
         'Content-Type': 'application/json'
@@ -74,6 +82,8 @@ export const addNewCard = (cardTitle, listId, boardId) => {
     
     fetch(`${baseUrl[env]}/post/card`, {
       method: 'POST', 
+      credentials: 'include',
+      mode: 'cors',
       body: JSON.stringify({cardTitle, listId, boardId}), 
       headers: new Headers({
         'Content-Type': 'application/json'
