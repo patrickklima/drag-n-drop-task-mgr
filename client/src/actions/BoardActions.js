@@ -1,105 +1,56 @@
+import handleApiCall from './handle-api-call-service';
 const baseUrl = {
   dev: 'http://localhost:8080/api',
 };
 const env = 'dev';
 
 export const getBoard = (id) => {
-  return (dispatch) => {
-    dispatch(getBoardRequest())
-    console.log("fetching: getBoard");
-    fetch(`${baseUrl[env]}/get/board/${id}`, {
-      method: 'GET', 
-      credentials: 'include',
-      mode: 'cors',
-    })
-    .then(response => response.json())
-    .then(json => {
-      console.log("getBoard received data", json);
-      dispatch(getBoardSuccess(json[0]));
-    })
-    .catch(e => {
-      console.log("dispatching getBoardFailure", e);
-      dispatch(getBoardFailure(e));
-    });
-  }
-}
+  console.log("getBoard", id);
+  return handleApiCall(
+    `${baseUrl[env]}/get/board/${id}`,
+    'GET', 
+    {},
+    getBoardRequest,
+    getBoardSuccess,
+    getBoardFailure
+  );
+};
 
 export const updateBoard = (type, id, data, boardId) => {
-  return (dispatch) => {
-    dispatch(updateBoardRequest);
-    console.log("updateBoard", type, id, data, boardId);
-    
-    fetch(`${baseUrl[env]}/put/${type}/${id}`, {
-      method: 'PUT', 
-      body: JSON.stringify({data, boardId}), 
-      credentials: 'include',
-      mode: 'cors',
-      headers: new Headers({
-        'Content-Type': 'application/json'
-      })
-    })
-    .then(res => res.json())
-    .then(json => {
-      console.log("updateBoard received data", json);
-      dispatch(updateBoardSuccess(json[0]));
-    })
-    .catch(e => {
-      console.log("dispatching updateBoardFailure", e);
-      dispatch(updateBoardFailure(e))
-    });
-  }
-}
+  console.log("updateBoard", type, id, data, boardId);
+  return handleApiCall(
+    `${baseUrl[env]}/put/${type}/${id}`,
+    'PUT',
+    {data, boardId},
+    updateBoardRequest,
+    updateBoardSuccess,
+    updateBoardFailure
+  );
+};
+
 export const addNewList = (listTitle, boardId) => {
-  return (dispatch) => {
-    dispatch(addNewListOrCardRequest);
-    console.log("addNewListOrCard", listTitle, boardId);
-    
-    fetch(`${baseUrl[env]}/post/list`, {
-      method: 'POST', 
-      credentials: 'include',
-      mode: 'cors',
-      body: JSON.stringify({listTitle, boardId}), 
-      headers: new Headers({
-        'Content-Type': 'application/json'
-      })
-    })
-    .then(res => res.json())
-    .then(json => {
-      console.log("addNewListOrCard received data", json);
-      dispatch(addNewListOrCardSuccess(json[0]));
-    })
-    .catch(e => {
-      console.log("dispatching addNewListOrCardFailure", e);
-      dispatch(addNewListOrCardFailure(e))
-    });
-  }
-}
+  console.log("addNewListOrCard", listTitle, boardId);
+  return handleApiCall(
+    `${baseUrl[env]}/post/list`,
+    'POST',
+    {listTitle, boardId},
+    addNewListOrCardRequest,
+    addNewListOrCardSuccess,
+    addNewListOrCardFailure
+  );
+};
 
 export const addNewCard = (cardTitle, listId, boardId) => {
-  return (dispatch) => {
-    dispatch(addNewListOrCardRequest);
-    console.log("addNewListOrCard", cardTitle, listId, boardId);
-    
-    fetch(`${baseUrl[env]}/post/card`, {
-      method: 'POST', 
-      credentials: 'include',
-      mode: 'cors',
-      body: JSON.stringify({cardTitle, listId, boardId}), 
-      headers: new Headers({
-        'Content-Type': 'application/json'
-      })
-    })
-    .then(res => res.json())
-    .then(json => {
-      console.log("addNewListOrCard received data", json);
-      dispatch(addNewListOrCardSuccess(json[0]));
-    })
-    .catch(e => {
-      console.log("dispatching addNewListOrCardFailure", e);
-      dispatch(addNewListOrCardFailure(e))
-    });
-  }
-}
+  console.log("addNewListOrCard", cardTitle, listId, boardId);
+  return handleApiCall(
+    `${baseUrl[env]}/post/card`,
+    'POST',
+    {cardTitle, listId, boardId},
+    addNewListOrCardRequest,
+    addNewListOrCardSuccess,
+    addNewListOrCardFailure
+  );
+};
 
 export const GET_BOARD_SUCCESS =  "GET_BOARD_SUCCESS";
 export const GET_BOARD_FAILURE =  "GET_BOARD_FAILURE";

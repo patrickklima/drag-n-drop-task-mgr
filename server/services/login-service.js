@@ -10,7 +10,6 @@ module.exports = (app) => {
       .then(user => {
         req.user.boards = user[0].boards;
         req.user.cards = user[0].cards;
-        logger.debug("res", res);
         return res.json(user);
       })
       .catch(err => next(err));

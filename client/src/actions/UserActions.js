@@ -1,3 +1,4 @@
+import handleApiCall from './handle-api-call-service';
 const baseUrl = {
   dev: 'http://localhost:8080',
 };
@@ -8,46 +9,26 @@ const createOrLogInPath = {
 }
 
 export const getAuth = () => {
-  return (dispatch) => {
-    dispatch(getAuthRequest());
-    
-    fetch(`${baseUrl[env]}/authenticate`, {
-      method: 'GET', 
-      credentials: 'include',
-      mode: 'cors',
-    })
-    .then(res => {
-      if (!res.ok) {
-        dispatch(getAuthFailure(res.error()));
-      }
-      dispatch(getAuthSuccess(true));
-    })
-  };
-}
+  return handleApiCall(
+    `${baseUrl[env]}/authenticate`,
+    'GET',
+    {},
+    getAuthRequest,
+    getAuthSuccess,
+    getAuthFailure
+  );
+};
 
 export const createOrLogInUser = (username, password, createNewAccount) => {
-  return (dispatch) => {
-    dispatch(createOrLogInUserRequest());
-    console.log("createOrLogInUser", username, password, `${baseUrl[env]}/${createOrLogInPath[createNewAccount]}`);
-    fetch(`${baseUrl[env]}/${createOrLogInPath[createNewAccount]}`, {
-      method: 'POST', 
-      credentials: 'include',
-      mode: 'cors',
-      headers: new Headers({
-        'Content-Type': 'application/json',
-      }),
-      body: JSON.stringify({username, password},)
-    })
-    .then(res => {
-      if (!res.ok) {
-        throw new Error(`${res.statusText}: ${res.error()}`);
-      } 
-      return res.json();
-    })
-    .then(user => dispatch(createOrLogInUserSuccess(user[0])))
-    .catch(error => dispatch(createOrLogInUserFailure(error)))
-  };
-}
+  return handleApiCall(
+    `${baseUrl[env]}/${createOrLogInPath[createNewAccount]}`,
+    'POST',
+    {username, password},
+    createOrLogInUserRequest,
+    createOrLogInUserSuccess,
+    createOrLogInUserFailure
+  );
+};
 
 export const GET_AUTH_REQUEST = "GET_AUTH_REQUEST";
 export const GET_AUTH_SUCCESS = "GET_AUTH_SUCCESS";
