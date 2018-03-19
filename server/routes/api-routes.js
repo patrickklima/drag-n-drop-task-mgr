@@ -7,7 +7,7 @@ const {
   createList,
   } = require('../services/data-service');
 
-
+//Gets a full board by ID
 router.get('/get/board/:id', (req, res, next) => {
   console.log("boards - received request")
   getBoardAndLists(req.params.id)
@@ -17,6 +17,7 @@ router.get('/get/board/:id', (req, res, next) => {
   .catch(e => next(e));
 });
 
+//Updates any existing doc: card, list, or board
 router.put('/put/:docType/:id', (req, res, next) => {
   const {docType, id} = req.params;
   const {data, boardId} = req.body;
@@ -29,6 +30,7 @@ router.put('/put/:docType/:id', (req, res, next) => {
   .catch(err => next(err));
 });
 
+//Creates a new card
 router.post('/post/card', (req, res, next) => {
   const {cardTitle, listId, boardId} = req.body;
   createCard(cardTitle, listId, boardId)
@@ -37,6 +39,7 @@ router.post('/post/card', (req, res, next) => {
   .catch(err => next(err));
 });
 
+//Creates a new list
 router.post('/post/list', (req, res, next) => {
   const {listTitle, boardId} = req.body;
   createList(listTitle, boardId)
