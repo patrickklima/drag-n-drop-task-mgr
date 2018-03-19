@@ -38,7 +38,6 @@ class BoardContainer extends Component {
   
   componentDidMount = () => {
     console.log("componentDidMount");
-    // this.props.getBoard(this.state.receivedId);
     this.props.getBoard(this.state.receivedId);
   }
 

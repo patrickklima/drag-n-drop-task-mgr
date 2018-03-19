@@ -27,8 +27,6 @@ const mapStateToProps = (state) => {
 };
 const mapDisptachToProps = (dispatch) => {
   return {
-    // getAuth: () => dispatch(getAuth()),
-    // getBoard: (id) => dispatch(getBoard(id)),
   }
 };
 class AppContainer extends Component {
@@ -45,7 +43,6 @@ class AppContainer extends Component {
         );
       })
       return (
-          // <BoardContainer id={'5a8db69a89648e046f03751d'}/>
           <Paper zdepth={2}>
             <div>
               <h2>Choose a Board or Start a New One</h2>
@@ -69,7 +66,6 @@ class AppContainer extends Component {
     }
     
     const Home = () => {
-      // this.props.getAuth();
        return this.props.user.hasAuth ? <Boards /> : <RegisterOrLogin />;
     }
     return (
@@ -78,8 +74,6 @@ class AppContainer extends Component {
           <Switch>
             <Route exact path='/' component={Home} />
             <Route path='/board/:id' render={({match}) => <BoardContainer id={match.params.id} />} />
-
-            
           </Switch>
         </Router>
       </MuiThemeProvider>
