@@ -7,6 +7,7 @@ import {
   Switch, 
   Route
 } from 'react-router-dom';
+import muiThemeable from 'material-ui/styles/muiThemeable';
 import Paper from 'material-ui/Paper';
 import {List, ListItem} from 'material-ui/List';
 import FileFolder from 'material-ui/svg-icons/file/folder';
@@ -29,29 +30,37 @@ const mapDisptachToProps = (dispatch) => {
   return {
   }
 };
-const style = {
-  boardContainer: {
-    height: '100%',
-  }
-};
+
 class AppContainer extends Component {
+  style = {
+    AppContainer: {
+      height: '100%',
+    }, 
+    BoardsAndLogin: {
+      padding: this.props.muiTheme.spacing.desktopGutter,
+      height: '100%',
+    }
+  }
   render() {
     const {user} = this.props;
     const Home = () => {
        return user.hasAuth ? <AllBoards user={user}/> : <RegisterOrLoginContainer />;
     }
     return (
-      <Paper zdepth={2} style={style.boardContainer}>
+      <Paper zdepth={2} style={this.style.AppContainer}>
         <NavBar />
-        <Router>
-          <Switch>
-            <Route exact path='/' component={Home} />
-            <Route path='/board/:id' render={({match}) => <BoardContainer id={match.params.id} />} />
-          </Switch>
-        </Router>
+        <Paper style={this.style.BoardsAndLogin}>
+          <Router>
+            <Switch>
+              <Route exact path='/' component={Home} />
+              <Route path='/board/:id' render={({match}) => <BoardContainer id={match.params.id} />} />
+            </Switch>
+          </Router>
+        </Paper>
       </Paper>
     );
   }
 }
 
+AppContainer = muiThemeable()(AppContainer);
 export default connect(mapStateToProps, mapDisptachToProps)(AppContainer);
