@@ -85,16 +85,18 @@ class BoardContainer extends Component {
 
   render() {
     console.log("BoardContainer:", this.props.board)
+    const {displayedTitle, newListTitle, changingTitle, addingNewList} = this.state;
+    const {board, muiTheme, listIds} = this.props;
     return (
       <DragDropContextProvider backend={HTML5Backend}>
         <Board 
-          board={this.props.board} 
-          displayedTitle={this.state.displayedTitle}
-          listIds={this.props.listIds} 
-          newListTitle={this.state.newListTitle}
+          board={board} 
+          displayedTitle={displayedTitle}
+          listIds={listIds} 
+          newListTitle={newListTitle}
           onChangeTextField={this.onChangeTextField}
-          changingTitle={this.state.changingTitle}
-          addingNewList={this.state.addingNewList}
+          changingTitle={changingTitle}
+          addingNewList={addingNewList}
           saveChanges={this.saveChanges}
           cancelChanges={this.cancelChanges}
         />
