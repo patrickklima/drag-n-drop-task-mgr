@@ -3,10 +3,11 @@ import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import {List as MaterialList} from 'material-ui/List';
+import muiThemeable from 'material-ui/styles/muiThemeable';
 import ListContainer from '../containers/ListContainer';
-// import DjelloList from './List';
 
-export default ({
+let Board = ({
+  muiTheme,  //from muiThemeable HOC
   board, 
   displayedTitle, 
   listIds, 
@@ -40,9 +41,12 @@ export default ({
       secondary={true}
       onClick={cancelChanges}
     />
-  ]
+  ];
 
   const style = {
+    boardContainer: {
+      padding: muiTheme.spacing.desktopGutter,
+    },
     boardTitle: {
       fontSize: 32,
       fontWeight: 'bold',
@@ -60,7 +64,7 @@ export default ({
   };
 
 return (
-  <Paper zdepth={2}>
+  <Paper zdepth={2} style={style.boardContainer}>
     <TextField
       value={displayedTitle}
       name='displayedTitle'
@@ -85,3 +89,6 @@ return (
   </Paper>
   );
 };
+
+Board = muiThemeable()(Board);
+export default Board;
