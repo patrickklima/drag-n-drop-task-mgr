@@ -7,8 +7,10 @@ import thunk from 'redux-thunk';
 import djelloApp from './reducers';
 import AppContainer from './containers/AppContainer';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import ligthBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import {cyan500} from 'material-ui/styles/colors';
+
 
 var store = createStore(djelloApp, compose(
   applyMiddleware(thunk),
@@ -16,9 +18,22 @@ var store = createStore(djelloApp, compose(
   window.__REDUX_DEVTOOLS_EXTENSION__())
 );
 
+const importedTheme = darkBaseTheme;
+const customGlobalStyles = {
+  ...importedTheme,
+  palette: {
+    ...importedTheme.palette,
+    textColor: cyan500,
+  },
+  appBar: {
+    ...importedTheme.appBar,
+    height: 80,
+  },
+};
+
 ReactDOM.render(
   <Provider store={store}>
-    <MuiThemeProvider muiTheme={getMuiTheme(ligthBaseTheme)}>
+    <MuiThemeProvider muiTheme={getMuiTheme(customGlobalStyles)}>
       <AppContainer />
     </MuiThemeProvider>
   </Provider>, 
