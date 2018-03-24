@@ -1,5 +1,4 @@
 import React from 'react';
-import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import {List as MaterialList} from 'material-ui/List';
@@ -44,9 +43,6 @@ let Board = ({
   ];
 
   const style = {
-    boardContainer: {
-      padding: muiTheme.spacing.desktopGutter,
-    },
     boardTitle: {
       fontSize: 32,
       fontWeight: 'bold',
@@ -64,7 +60,7 @@ let Board = ({
   };
 
 return (
-  <Paper zdepth={2} style={style.boardContainer}>
+  <div>
     <TextField
       value={displayedTitle}
       name='displayedTitle'
@@ -86,7 +82,7 @@ return (
       />
       {addingNewList && saveCancelButtons}
     </div>
-  </Paper>
+  </div>
   );
 };
 
