@@ -15,6 +15,7 @@ import {getAuth} from '../actions/UserActions'
 import {getBoard} from '../actions/BoardActions'
 import BoardContainer from './BoardContainer';
 import RegisterOrLoginContainer from './RegisterOrLoginContainer';
+import NavBar from '../components/NavBar';
 
 
  
@@ -69,6 +70,7 @@ class AppContainer extends Component {
     }
     return (
       <div>
+        <NavBar />
         <Router>
           <Switch>
             <Route exact path='/' component={Home} />
