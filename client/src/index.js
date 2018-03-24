@@ -6,6 +6,9 @@ import {Provider} from 'react-redux';
 import thunk from 'redux-thunk';
 import djelloApp from './reducers';
 import AppContainer from './containers/AppContainer';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import ligthBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 var store = createStore(djelloApp, compose(
   applyMiddleware(thunk),
@@ -15,7 +18,9 @@ var store = createStore(djelloApp, compose(
 
 ReactDOM.render(
   <Provider store={store}>
-    <AppContainer />
+    <MuiThemeProvider muiTheme={getMuiTheme(ligthBaseTheme)}>
+      <AppContainer />
+    </MuiThemeProvider>
   </Provider>, 
   document.getElementById('root')
 );

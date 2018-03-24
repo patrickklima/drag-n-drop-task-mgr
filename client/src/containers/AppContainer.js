@@ -11,7 +11,6 @@ import Paper from 'material-ui/Paper';
 import {List, ListItem} from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
 import FileFolder from 'material-ui/svg-icons/file/folder';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {getAuth} from '../actions/UserActions'
 import {getBoard} from '../actions/BoardActions'
 import BoardContainer from './BoardContainer';
@@ -69,14 +68,14 @@ class AppContainer extends Component {
        return this.props.user.hasAuth ? <Boards /> : <RegisterOrLogin />;
     }
     return (
-      <MuiThemeProvider>
+      <div>
         <Router>
           <Switch>
             <Route exact path='/' component={Home} />
             <Route path='/board/:id' render={({match}) => <BoardContainer id={match.params.id} />} />
           </Switch>
         </Router>
-      </MuiThemeProvider>
+      </div>
     );
   }
 }
