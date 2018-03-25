@@ -5,7 +5,7 @@ import {ListItem} from 'material-ui/List';
 import CardContainer from '../containers/CardContainer';
 import SaveCancelButtons from './SaveCancelButtons';
 
-export default ({
+const List = ({
   list, 
   displayedTitle, 
   newCardTitle, 
@@ -74,3 +74,4 @@ export default ({
   );
 };
 
+export default List;

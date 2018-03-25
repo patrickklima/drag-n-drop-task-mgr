@@ -9,7 +9,7 @@ import Checkbox from 'material-ui/Checkbox';
 import MembersContainer from '../containers/MembersContainer';
 import CardChanges from './CardChanges';
 
-export default ({
+const Card = ({
   cardTitle, 
   cardId,
   description, 
@@ -116,4 +116,6 @@ export default ({
       </div> 
 
   );
-}
+};
+
+export default Card;
