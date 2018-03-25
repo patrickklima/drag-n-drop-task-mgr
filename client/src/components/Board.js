@@ -2,11 +2,9 @@ import React from 'react';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import {List as MaterialList} from 'material-ui/List';
-import muiThemeable from 'material-ui/styles/muiThemeable';
 import ListContainer from '../containers/ListContainer';
 
 let Board = ({
-  muiTheme,  //from muiThemeable HOC
   board, 
   displayedTitle, 
   listIds, 
@@ -86,5 +84,4 @@ return (
   );
 };
 
-Board = muiThemeable()(Board);
 export default Board;
