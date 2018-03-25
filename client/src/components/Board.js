@@ -44,7 +44,9 @@ let Board = ({
     boardTitle: {
       fontSize: 32,
       fontWeight: 'bold',
-      textTransform: 'capitalize'
+      textTransform: 'capitalize', 
+      border: '2px solid #FF0250', 
+      paddingLeft: 10
     },
     listLayout: {
       display: 'flex',
