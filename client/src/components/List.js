@@ -16,6 +16,9 @@ export default ({
   cancelChanges
 }) =>  {
   const style = {
+    listBox: {
+      margin: 10,
+    },
     displayedTitle: {
       fontSize: 28,
       fontWeight: 'bold',
@@ -38,7 +41,7 @@ export default ({
   });
 
   return (
-    <div >
+    <div style={style.listBox}>
       <TextField
         value={displayedTitle}
         name='displayedTitle'
