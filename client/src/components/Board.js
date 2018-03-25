@@ -3,6 +3,7 @@ import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import {List as MaterialList} from 'material-ui/List';
 import ListContainer from '../containers/ListContainer';
+import SaveCancelButtons from './SaveCancelButtons';
 
 let Board = ({
   board, 
@@ -25,21 +26,7 @@ let Board = ({
     );
   });
   
-  const saveCancelButtons = [
-    <FlatButton
-      key="Save"
-      label="Save"
-      primary={true}
-      onClick={saveChanges}
-    />,
-    <FlatButton
-      key="Canel"
-      label="X"
-      secondary={true}
-      onClick={cancelChanges}
-    />
-  ];
-
+  
   const style = {
     boardTitle: {
       fontSize: 32,
@@ -68,8 +55,11 @@ return (
       underlineShow={false}
       onChange={onChangeTextField}
     />
-    {changingTitle && saveCancelButtons}
-
+    { changingTitle && 
+      <SaveCancelButtons 
+        saveChanges={saveChanges}
+        cancelChanges={cancelChanges}
+      />}
     <div style={style.listLayout}>
       {listMap}
       <TextField
@@ -80,7 +70,11 @@ return (
         underlineShow={false}
         onChange={onChangeTextField}
       />
-      {addingNewList && saveCancelButtons}
+      { addingNewList && 
+        <SaveCancelButtons 
+          saveChanges={this.saveChanges}
+          cancelChanges={this.cancelChanges}
+        />}
     </div>
   </div>
   );

@@ -56,13 +56,13 @@ export default ({
     }
   }; 
   const cardDialog = 
-      <div>
-        <Dialog
-          modal={false}
-          actions={buttons}
-          open={isdialogOpen}
-          onRequestClose={closeDialog}
-        >
+    <div>
+      <Dialog
+        modal={false}
+        actions={buttons}
+        open={isdialogOpen}
+        onRequestClose={closeDialog}
+      >
         <div>
           <TextField
             defaultValue={cardTitle}
@@ -83,28 +83,28 @@ export default ({
               onCheck={toggleCompleted}
             />
           </div>
-      </div>
-      <Divider style={style.divider} />
-      <label>Users added to this card:</label>
-      <MembersContainer cardId={cardId}/>
-      <Divider style={style.divider} />
-      <div>
-        <label>Description:</label> 
-        <TextField
-          defaultValue={description}
-          name='description'
-          multiLine={true}
-          rows={2}
-          rowsMax={6}
-          fullWidth={true}
-          underlineShow={false}
-          onChange={onChangeTextField}
-        />
-      </div>
-      <Divider style={style.divider} />
-      <CardChanges changes={changes}/>
-    </Dialog>
-  </div>;
+        </div>
+        <Divider style={style.divider} />
+        <label>Users added to this card:</label>
+        <MembersContainer cardId={cardId}/>
+        <Divider style={style.divider} />
+        <div>
+          <label>Description:</label> 
+          <TextField
+            defaultValue={description}
+            name='description'
+            multiLine={true}
+            rows={2}
+            rowsMax={6}
+            fullWidth={true}
+            underlineShow={false}
+            onChange={onChangeTextField}
+          />
+        </div>
+        <Divider style={style.divider} />
+        <CardChanges changes={changes}/>
+      </Dialog>
+    </div>;
   return (
     <div>
         <ListItem 

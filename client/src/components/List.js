@@ -3,6 +3,7 @@ import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import {ListItem} from 'material-ui/List';
 import CardContainer from '../containers/CardContainer';
+import SaveCancelButtons from './SaveCancelButtons';
 
 export default ({
   list, 
@@ -35,20 +36,6 @@ export default ({
       </div>
     );
   });
-  const saveCancelButtons = [
-    <FlatButton
-      key="Save"
-      label="Save"
-      primary={true}
-      onClick={saveChanges}
-    />,
-    <FlatButton
-      key="Cancel"
-      label="X"
-      secondary={true}
-      onClick={cancelChanges}
-    />
-  ];
 
   return (
     <div >
@@ -59,7 +46,11 @@ export default ({
         underlineShow={false}
         onChange={onChangeTextField}
       />
-      {changingTitle && saveCancelButtons}
+      { changingTitle && 
+        <SaveCancelButtons 
+          saveChanges={saveChanges}
+          cancelChanges={cancelChanges}
+        />}
       {cardMap}
       <ListItem>
         <TextField
@@ -71,7 +62,11 @@ export default ({
           onChange={onChangeTextField}
         />
       </ListItem>
-      {addingNewCard && saveCancelButtons}
+      { addingNewCard && 
+        <SaveCancelButtons 
+          saveChanges={saveChanges}
+          cancelChanges={cancelChanges}
+        />}
     </div>
   );
 };
