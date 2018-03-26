@@ -9,7 +9,7 @@ import AppContainer from './containers/AppContainer';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import {cyan500} from 'material-ui/styles/colors';
+import {cyan500, grey700} from 'material-ui/styles/colors';
 
 
 var store = createStore(djelloApp, compose(
@@ -24,6 +24,7 @@ const customGlobalStyles = {
   palette: {
     ...importedTheme.palette,
     textColor: cyan500,
+    primary3Color: grey700,
   },
   appBar: {
     ...importedTheme.appBar,

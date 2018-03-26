@@ -4,8 +4,10 @@ import FlatButton from 'material-ui/FlatButton';
 import {ListItem} from 'material-ui/List';
 import CardContainer from '../containers/CardContainer';
 import SaveCancelButtons from './SaveCancelButtons';
+import muiThemeable from 'material-ui/styles/muiThemeable';
 
-const List = ({
+let List = ({
+  muiTheme, //from muiThemeable
   list, 
   displayedTitle, 
   newCardTitle, 
@@ -17,7 +19,10 @@ const List = ({
 }) =>  {
   const style = {
     listBox: {
-      margin: 10,
+      padding: 10,
+      marginRight: 15,
+      marginTop: 10,
+      backgroundColor: muiTheme.palette.primary3Color
     },
     displayedTitle: {
       fontSize: 28,
@@ -74,4 +79,5 @@ const List = ({
   );
 };
 
+List = muiThemeable()(List);
 export default List;
