@@ -15,7 +15,7 @@ import {getAuth} from '../actions/UserActions'
 import {getBoard} from '../actions/BoardActions'
 import BoardContainer from './BoardContainer';
 import RegisterOrLoginContainer from './RegisterOrLoginContainer';
-import NavBar from '../components/NavBar';
+import NavBarContainer from './NavBarContainer';
 import AllBoards from '../components/AllBoards';
 
 
@@ -48,19 +48,22 @@ class AppContainer extends Component {
     }
     return (
       <Paper zdepth={2} style={this.style.AppContainer}>
-        <NavBar />
-        <Paper style={this.style.BoardsAndLogin}>
-          <Router>
-            <Switch>
-              <Route exact path='/' component={Home} />
-              <Route path='/board/:id' render={({match}) => <BoardContainer id={match.params.id} />} />
-            </Switch>
-          </Router>
-        </Paper>
+        <Router>
+          <div>
+            <NavBarContainer />
+            <Paper style={this.style.BoardsAndLogin}>
+              <Switch>
+                <Route exact path='/' component={Home} />
+                <Route path='/board/:id' render={({match}) => <BoardContainer id={match.params.id} />} />
+              </Switch>
+            </Paper>
+          </div>
+        </Router>
       </Paper>
     );
   }
 }
 
 AppContainer = muiThemeable()(AppContainer);
-export default connect(mapStateToProps, mapDisptachToProps)(AppContainer);
+AppContainer = connect(mapStateToProps, mapDisptachToProps)(AppContainer);
+export default AppContainer;
