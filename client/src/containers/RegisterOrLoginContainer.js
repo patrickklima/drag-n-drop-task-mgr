@@ -4,7 +4,9 @@ import RegisterOrLogin from '../components/RegisterOrLogin';
 import{createOrLogInUser as sendUserInfo} from '../actions/UserActions';
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    user: state.user,
+  };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -33,7 +35,7 @@ class RegistrationContainer extends Component {
   
   render() {
     const {createNewAccount, username, password} = this.state;
-    const {sendUserInfo} = this.props;
+    const {user, sendUserInfo} = this.props;
 
     return (
       <RegisterOrLogin 
@@ -43,6 +45,7 @@ class RegistrationContainer extends Component {
         sendUserInfo={sendUserInfo}
         username={username}
         password={password}
+        isFetchingUser={user.isFetching}
 
       />
     );

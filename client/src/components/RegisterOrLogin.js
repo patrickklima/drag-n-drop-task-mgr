@@ -3,11 +3,14 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import Toggle from 'material-ui/Toggle';
+import CircularProgress from 'material-ui/CircularProgress';
+import {grey700} from 'material-ui/styles/colors';
 
-export default ({storeEntry, createNewAccount, toggleCreateNewAccount, sendUserInfo, username, password, }) => {
+const RegisterOrLogin = ({storeEntry, createNewAccount, toggleCreateNewAccount, sendUserInfo, username, password, isFetchingUser,}) => {
   const style = {
     button: {
-      margin: 15,
+      marginTop: 10,
+      backgroundColor: grey700
     },
     toggle: {
       marginBottom: 16,
@@ -47,6 +50,9 @@ export default ({storeEntry, createNewAccount, toggleCreateNewAccount, sendUserI
         style={style.button} 
         onClick={(e) => sendUserInfo(e, username, password, createNewAccount)}
       />
+      {isFetchingUser && <CircularProgress />}
     </div>
   );
 };
+
+export default RegisterOrLogin;
