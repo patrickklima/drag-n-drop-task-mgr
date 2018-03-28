@@ -4,8 +4,10 @@ import FlatButton from 'material-ui/FlatButton';
 import {List as MaterialList} from 'material-ui/List';
 import ListContainer from '../containers/ListContainer';
 import SaveCancelButtons from './SaveCancelButtons';
+import muiThemeable from 'material-ui/styles/muiThemeable';
 
 let Board = ({
+  muiTheme, //from muiThemeable
   board, 
   displayedTitle, 
   listIds, 
@@ -32,8 +34,10 @@ let Board = ({
       fontSize: 32,
       fontWeight: 'bold',
       textTransform: 'capitalize', 
-      border: '2px solid #FF0250', 
-      paddingLeft: 10
+      paddingLeft: 10,
+      border: '2px solid ',
+      borderColor: muiTheme.palette.accent1Color, 
+      borderRadius: 10,
     },
     listLayout: {
       display: 'flex',
@@ -80,4 +84,5 @@ return (
   );
 };
 
+Board = muiThemeable()(Board);
 export default Board;

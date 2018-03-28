@@ -8,8 +8,10 @@ import Chip from 'material-ui/Chip';
 import Checkbox from 'material-ui/Checkbox';
 import MembersContainer from '../containers/MembersContainer';
 import CardChanges from './CardChanges';
+import muiThemeable from 'material-ui/styles/muiThemeable';
 
-const Card = ({
+let Card = ({
+  muiTheme, //from muiThemeable
   cardTitle, 
   cardId,
   description, 
@@ -39,7 +41,11 @@ const Card = ({
     cardTitle: {
       fontSize: 18,
       fontWeight: 'bold',
-      textTransform: 'capitalize'
+      textTransform: 'capitalize',
+      marginTop: 10,
+      border: '1px solid',
+      borderColor: muiTheme.palette.canvasColor,
+      borderRadius: 5,
     },
     listTitle: {
       fontSize: 12,
@@ -118,4 +124,5 @@ const Card = ({
   );
 };
 
+Card = muiThemeable()(Card);
 export default Card;
