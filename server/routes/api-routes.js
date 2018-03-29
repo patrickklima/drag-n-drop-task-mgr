@@ -45,4 +45,12 @@ router.post('/post/list', (req, res, next) => {
   .catch(err => next(err));
 });
 
+//Creates a new Board
+router.post('/post/board', (req, res, next) => {
+  const {boardTitle} = req.body;
+  createBoard(boardTitle)
+  .then(board => res.json(board))
+  .catch(err => next(err));
+});
+
 module.exports = router;
