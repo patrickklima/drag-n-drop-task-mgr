@@ -32,7 +32,12 @@ class NavBarContainer extends Component {
         title="Drag n Drop Task Manager"
         iconClassNameRight="muidocs-icon-navigation-expand-more"
         onLeftIconButtonClick={this.toggleNavPanel}
-        children={<NavPanel open={navPanelIsOpen} user={user}/>}
+        children={
+          <NavPanel 
+            open={navPanelIsOpen} 
+            user={user}
+            toggleNavPanel={this.toggleNavPanel}
+          />}
       />
     );
   }

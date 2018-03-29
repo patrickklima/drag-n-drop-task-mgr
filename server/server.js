@@ -74,11 +74,8 @@ app.use((req, res, next) => {
 
 // SERVICES
 // ----------
-require('./services/create-user-service')(app);
-require('./services/login-service')(app);
-
-
-
+require('./routes/register-route')(app);
+require('./routes/login-route')(app);
 
 // ROUTES
 // ----------

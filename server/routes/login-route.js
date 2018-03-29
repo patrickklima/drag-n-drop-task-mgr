@@ -1,5 +1,5 @@
 const passport = require('passport');
-const {getFullUserById, getFullUserByUserName} = require('./data-service');
+const {getFullUserById, getFullUserByUserName} = require('../services/get-data-service');
 
 
 module.exports = (app) => {

@@ -1,11 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const {
-  getBoardAndLists, 
-  updateAnyDoc, 
-  createCard, 
-  createList,
-  } = require('../services/data-service');
+const {getBoardAndLists} = require('../services/get-data-service');
+const {updateAnyDoc} = require('../services/update-data-service');
+const {createCard, createList} = require('../services/create-data-service');
 
 //Gets a full board by ID
 router.get('/get/board/:id', (req, res, next) => {
