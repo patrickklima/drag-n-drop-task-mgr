@@ -15,44 +15,19 @@ app.use(cors({
   credentials: true
 }))
 
-// COOKIE-PARSER
-// ----------
-const cookieParser = require("cookie-parser");
-app.use(cookieParser());
-
 // BODY-PARSER
 // ----------
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// EXPRESS-SESSION
-// ----------
-const expressSession = require("express-session");
-app.use(
-  expressSession({
-    name: 'Djello',
-    secret: process.env.secret || "keyboard cat",
-    saveUninitialized: false,
-    resave: false,
-    cookie: { secure: true }
-  })
-);
 
-
-
-// PASSPORT-LOCAL STRATEGY & PASSPORT-LOCAL-MONGOOSE
+// PASSPORT
 // ----------
 const passport = require("passport");
-const LocalStrategy = require("passport-local").Strategy;
-app.use(passport.initialize());
-app.use(passport.session());
 
 
 var User = require('./data/models/user');
-passport.use(User.createStrategy());
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
 
 // MORGAN - LOGGING
 // ----------
