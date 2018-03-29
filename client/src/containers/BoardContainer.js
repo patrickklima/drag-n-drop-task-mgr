@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import { withRouter } from 'react-router';
 import {DragDropContextProvider} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import Board from '../components/Board';
 import {getBoard, updateBoard, addNewList} from '../actions/BoardActions';
 
 const mapStateToProps = (state, ownProps) => {
-  const {id} = ownProps;
   const {board} = state;
   return {
     board,
     listIds: Object.keys(board.lists),
-    boardId: id
+    boardId: ownProps.match.params.id
   };
 }
 
@@ -38,12 +38,15 @@ class BoardContainer extends Component {
   
   componentDidMount = () => {
     console.log("componentDidMount");
-    this.props.getBoard(this.state.receivedId);
+    this.props.getBoard(this.props.match.params.id);
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.board.boardTitle !== this.props.board.boardTitle) {
       this.setState({displayedTitle: this.props.board.boardTitle});
+    }
+    if (prevProps.boardId !== this.props.boardId) {
+      this.props.getBoard(this.props.boardId);
     }
   }
   
@@ -104,7 +107,8 @@ class BoardContainer extends Component {
     );
   }
 }
-
-export default connect(mapStateToProps, mapDispatchToProps)(BoardContainer);
+BoardContainer = withRouter(BoardContainer);
+BoardContainer = connect(mapStateToProps, mapDispatchToProps)(BoardContainer);
+export default BoardContainer;
 
 

@@ -54,7 +54,7 @@ class AppContainer extends Component {
             <Paper style={this.style.BoardsAndLogin}>
               <Switch>
                 <Route exact path='/' component={Home} />
-                <Route path='/board/:id' render={({match}) => <BoardContainer id={match.params.id} />} />
+                <Route path='/board/:id' render={({match}) => <BoardContainer match={match} />} />
               </Switch>
             </Paper>
           </div>
