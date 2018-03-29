@@ -17,5 +17,12 @@ module.exports = {
     parentBoard.lists = [...parentBoard.lists, newList._id];
     return await parentBoard.save().catch(errorCatch);
   },
+  createBoard: async (boardTitle) => {
+    console.log("createBoard", boardTitle);
+    const newBoard = await new models.Board({boardTitle}).save().catch(errorCatch);
+    const newList = await this.createList("New List", newBoard._id);
+    const newCard = await this.createCard("New Card", newlist._id);
+    return newBoard;
+  },
 };
 
