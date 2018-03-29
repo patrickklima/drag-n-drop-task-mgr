@@ -35,7 +35,6 @@ class NavBarContainer extends Component {
         children={
           <NavPanel 
             open={navPanelIsOpen} 
-            user={user}
             toggleNavPanel={this.toggleNavPanel}
           />}
       />

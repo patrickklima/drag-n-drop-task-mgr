@@ -1,6 +1,6 @@
 import React from 'react';
 import Drawer from 'material-ui/Drawer';
-import AllBoards from '../components/AllBoards';
+import AllBoardsContainer from '../containers/AllBoardsContainer';
 
 const NavPanel = ({open, user, toggleNavPanel}) => {
   const style = {
@@ -18,7 +18,7 @@ const NavPanel = ({open, user, toggleNavPanel}) => {
         width={500}
       >
         <div style={style.content}>
-          <AllBoards user={user} />
+          <AllBoardsContainer />
         </div>
       </Drawer>
     </div>

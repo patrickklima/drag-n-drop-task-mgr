@@ -6,7 +6,7 @@ import Avatar from 'material-ui/Avatar';
 import {Paper, List, ListItem} from 'material-ui/List';
 import FileFolder from 'material-ui/svg-icons/file/folder';
 import ActionNoteAdd from 'material-ui/svg-icons/action/note-add';
-import SaveCancelButtons from './SaveCancelButtons';
+import SaveCancelButtons from '../components/SaveCancelButtons';
 import {addNewBoard} from '../actions/UserActions';
 
 const mapStateToProps = (state) => {

@@ -16,7 +16,7 @@ import {getBoard} from '../actions/BoardActions'
 import BoardContainer from './BoardContainer';
 import RegisterOrLoginContainer from './RegisterOrLoginContainer';
 import NavBarContainer from './NavBarContainer';
-import AllBoards from '../components/AllBoards';
+import AllBoardsContainer from './AllBoardsContainer';
 
 
  
@@ -44,7 +44,7 @@ class AppContainer extends Component {
   render() {
     const {user} = this.props;
     const Home = () => {
-       return user.hasAuth ? <AllBoards user={user}/> : <RegisterOrLoginContainer />;
+       return user.hasAuth ? <AllBoardsContainer /> : <RegisterOrLoginContainer />;
     }
     return (
       <Paper zdepth={2} style={this.style.AppContainer}>
