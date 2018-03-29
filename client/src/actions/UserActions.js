@@ -30,6 +30,43 @@ export const createOrLogInUser = (username, password, createNewAccount) => {
   );
 };
 
+export const addNewBoard = (boardTitle, userId) => {
+  console.log("addNewBoard", boardTitle, userId);
+  return handleApiCall(
+  `${baseUrl[env]}/api/post/board`,
+    'POST',
+    {boardTitle, userId},
+    addNewBoardRequest,
+    addNewBoardSuccess,
+    addNewBoardFailure
+  )
+};
+
+export const ADD_NEW_BOARD_SUCCESS =  "ADD_NEW_BOARD_SUCCESS";
+export const ADD_NEW_BOARD_FAILURE =  "ADD_NEW_BOARD_FAILURE";
+export const ADD_NEW_BOARD_REQUEST =  "ADD_NEW_BOARD_REQUEST";
+
+export const addNewBoardSuccess = (data) => {
+  console.log("addNewBoardSuccess", data);
+  return {
+    type: ADD_NEW_BOARD_SUCCESS,
+    data: data
+  };
+}
+export const addNewBoardFailure = (error) => {
+  console.log("addNewBoardFailure");
+  return {
+    type: ADD_NEW_BOARD_FAILURE,
+    data: error
+  };
+}
+export const addNewBoardRequest = () => {
+  console.log("addNewBoardRequest");
+  return {
+    type: ADD_NEW_BOARD_REQUEST,
+  };
+}
+
 export const GET_AUTH_REQUEST = "GET_AUTH_REQUEST";
 export const GET_AUTH_SUCCESS = "GET_AUTH_SUCCESS";
 export const GET_AUTH_FAILURE = "GET_AUTH_FAILURE";

@@ -47,11 +47,9 @@ const normalizeBoardState = (boardData) => {
 const board = (state=initial.board, action) => {
   switch (action.type) {
     case BoardActions.GET_BOARD_SUCCESS:
-      console.log("reducer", "BoardActions.GET_BOARD_SUCCESS", action);
     case BoardActions.UPDATE_BOARD_SUCCESS:
-      console.log("reducer", "BoardActions.UPDATE_BOARD_SUCCESS", action);
     case BoardActions.ADD_NEW_LIST_OR_CARD_SUCCESS:
-      console.log("reducer", "BoardActions.ADD_NEW_LIST_OR_CARD_SUCCESS", action);
+      console.log("reducer", action);
       const {_id, boardTitle, lists, cards} = normalizeBoardState(action.data);
       return {
         _id,
@@ -69,7 +67,7 @@ const board = (state=initial.board, action) => {
         error: action.data,
         isFetching: false,
       };
-    case BoardActions.GET_BOARD_REQUEST:
+    case BoardActions.GET_BOARD_REQUEST: 
     case BoardActions.UPDATE_BOARD_REQUEST:
     case BoardActions.ADD_NEW_LIST_OR_CARD_REQUEST:
       return {
@@ -77,7 +75,7 @@ const board = (state=initial.board, action) => {
         isFetching: true,
       };
     default: 
-      console.log('default state returned', state);
+      console.log('default board state returned', state);
       return state;
   }
 }
@@ -91,6 +89,16 @@ const user = (state=initial.user, action) => {
         ...state,
         isFetching: true
       };
+    case UserActions.ADD_NEW_BOARD_REQUEST: 
+      return state;
+    case UserActions.ADD_NEW_BOARD_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        boards: [
+          ...state.boards, action.data    //action.data contains the new board
+        ]
+      }
     case UserActions.CREATE_OR_LOG_IN_USER_SUCCESS:
     case UserActions.GET_AUTH_SUCCESS: 
       const {_id, username, boards, cards} = action.data;
@@ -106,6 +114,7 @@ const user = (state=initial.user, action) => {
       };
     case UserActions.CREATE_OR_LOG_IN_USER_FAILURE:
     case UserActions.GET_AUTH_FAILURE: 
+    case UserActions.ADD_NEW_BOARD_FAILURE:
       return {
         ...state,
         hasAuth: false,
@@ -113,6 +122,7 @@ const user = (state=initial.user, action) => {
         error: action.data
       };
     default: 
+      console.log('default user state returned', state);
       return state;
   }
 }
