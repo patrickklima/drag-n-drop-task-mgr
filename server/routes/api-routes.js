@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const {getBoardAndLists} = require('../services/get-data-service');
 const {updateAnyDoc} = require('../services/update-data-service');
-const {createCard, createList} = require('../services/create-data-service');
+const {createCard, createList, createBoard} = require('../services/create-data-service');
 
 //Gets a full board by ID
 router.get('/get/board/:id', (req, res, next) => {
@@ -47,8 +47,9 @@ router.post('/post/list', (req, res, next) => {
 
 //Creates a new Board
 router.post('/post/board', (req, res, next) => {
-  const {boardTitle} = req.body;
-  createBoard(boardTitle)
+  const {boardTitle, userId} = req.body;
+  createBoard(boardTitle, userId)
+  .then(newBoard => getBoardAndLists(newBoard._id))
   .then(board => res.json(board))
   .catch(err => next(err));
 });
