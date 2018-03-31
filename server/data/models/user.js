@@ -1,11 +1,9 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const passportLocalMongoose = require('passport-local-mongoose');
-const Board = require('./board');
 
 var UserSchema = new Schema({
   username: String,
-  password: String
+  password: String  //hashed by bcrypt
 }, {
   timestamps: true,
   toJSON: { getters: true, virtuals: true },
@@ -41,8 +39,6 @@ UserSchema.statics.getFullUserByUserName = (username) => {
     .populate({path: 'boards', select: 'boardTitle'})
     .populate({path: 'cards', select: 'cardTitle'});
 }
-
-UserSchema.plugin(passportLocalMongoose);
 
 var User = mongoose.model('User', UserSchema);
 
