@@ -18,7 +18,12 @@ const handleApiCall = (requestUrl, httpMethod, bodyData, requestFunc, successFun
       }
       return res.json();
     })
-    .then(json => dispatch(successFunc(json[0])))
+    .then(json => {
+      if (json[0].token) {
+        sessionStorage.setItem('jwtToken', json[0].token);
+      }
+      dispatch(successFunc(json[0]));
+    })
     .catch(error => dispatch(failureFunc(error)));
   };
 };
