@@ -15,19 +15,19 @@ app.use(cors({
   credentials: true
 }))
 
+
+// PASSPORT & JWT
+// ----------
+const jwtService = require('./services/jwt-service');
+const passport = require('passport');
+passport.use(jwtService.strategy);
+app.use(passport.initialize());
+
 // BODY-PARSER
 // ----------
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
-
-// PASSPORT
-// ----------
-const passport = require("passport");
-
-
-var User = require('./data/models/user');
 
 // MORGAN - LOGGING
 // ----------
@@ -74,4 +74,4 @@ app.use((err, req, res, next) => {
 // SERVER START
 // ----------
 const port = 8080;
-app.listen(port, () => console.log(port));
+app.listen(port, () => console.log(`Server is running on port: ${port}`));

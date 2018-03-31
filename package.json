@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "cd server && node server",
-    "client": "cd client && npm run start"
+    "client": "cd client && npm run start",
+    "seeds": "cd server/data/seeds && node index"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,7 @@
   },
   "homepage": "https://github.com/patrickklima/project_djello#readme",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
     "cookie-session": "^2.0.0-beta.3",
@@ -29,6 +31,7 @@
     "express": "^4.16.2",
     "express-flash": "0.0.2",
     "faker": "^4.1.0",
+    "jsonwebtoken": "^8.2.0",
     "log4js": "^2.5.3",
     "material-ui": "^0.20.0",
     "mongoose": "^5.0.3",
@@ -36,6 +39,7 @@
     "morgan": "^1.9.0",
     "morgan-toolkit": "^1.2.2",
     "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-router-dom": "^4.2.2"
