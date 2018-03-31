@@ -101,7 +101,7 @@ const user = (state=initial.user, action) => {
       }
     case UserActions.CREATE_OR_LOG_IN_USER_SUCCESS:
     case UserActions.GET_AUTH_SUCCESS: 
-      const {_id, username, boards, cards} = action.data;
+      const {_id, username, boards, cards} = action.data.user;
       return {
         ...state,
         _id,
