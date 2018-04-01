@@ -1,4 +1,5 @@
 const models = require('../data/models');
+const {hashPassword} = require('../services/password-service');
 
 const errorCatch = (err) => console.log("error in create-data-service", err);
 
@@ -31,6 +32,15 @@ service.createBoard = async (boardTitle, userId) => {
   const newCard = await service.createCard("New Card", newList._id);
   console.log("newBoard", newBoard);
   return newBoard;
+};
+service.createUser = async (username, password) => {
+  const hashedPassword = await hashPassword(password);
+  const newUser = await new models.User({
+    username: username, 
+    password: hashedPassword
+  });
+  console.log("newUser", newUser);
+  return newUser.save();
 };
 
 module.exports = service;

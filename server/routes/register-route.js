@@ -1,22 +1,23 @@
 const passport = require('passport');
-const {User} = require('../data/models');
+const {createUser} = require('../services/create-data-service');
+const {getFullUserById} = require('../services/get-data-service');
+const {makeToken} = require('../services/jwt-service');
+
+const errorCatch = (err, next) => next(err);
 
 module.exports = (app) => {
   app.post('/register', (req, res, next) => {
-    User.register(new User(
-      {username : req.body.username}), 
-      req.body.password,
-      (err, user) => {
-        if (err) {
-          err.response.status == '403';
-          return next(err);
-        }
-        passport.authenticate('local');
-        res.json(JSON.stringify(user));
-      }
-    )
+    const {username, password} = req.body;
+    return createUser(username, password)
+    .then(newUser => getFullUserById(newUser._id))
+    .then(userData => {
+      const user = userData[0];
+      const token = makeToken({id: user._id});
+      console.log("user", user);
+      console.log("token", token);
+      return res.json([{user, token}]);
+    })
+    .catch(err => next(err));
   });
-  
+};
 
-
-}
