@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import List from '../components/List';
 import {DropTarget} from 'react-dnd';
+import List from '../components/List';
 import {updateBoard, addNewCard} from '../actions/BoardActions';
 
 
@@ -21,17 +21,20 @@ const mapDispatchToProps = (dispatch) => {
     addNewCard: (newCardTitle, listId, boardId) => dispatch(addNewCard(newCardTitle, listId, boardId)),
   }
 }
-
+// React Drag n Drop: Defining Type
 const cardTarget = {
-  drop() {
-    return {name: 'List'};
+  drop(props) {
+    return {
+      name: 'List',
+      listId: props.listId
+    };
   }
 }
-
+// React Drag n Drop: Defining drag-monitoring events
 const collect = (connect, monitor) => {
   return {
-    highlighted: monitor.canDrop(),
-    hovered: monitor.isOver(),
+    canDrop: monitor.canDrop(),
+    isOver: monitor.isOver(),
     connectDropTarget: connect.dropTarget()
   };
 }
