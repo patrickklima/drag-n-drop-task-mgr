@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import { withRouter } from 'react-router';
-import {DragDropContextProvider} from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
+
 import Board from '../components/Board';
 import {getBoard, updateBoard, addNewList} from '../actions/BoardActions';
 
@@ -91,19 +90,17 @@ class BoardContainer extends Component {
     const {displayedTitle, newListTitle, changingTitle, addingNewList} = this.state;
     const {board, muiTheme, listIds} = this.props;
     return (
-      <DragDropContextProvider backend={HTML5Backend}>
-        <Board 
-          board={board} 
-          displayedTitle={displayedTitle}
-          listIds={listIds} 
-          newListTitle={newListTitle}
-          onChangeTextField={this.onChangeTextField}
-          changingTitle={changingTitle}
-          addingNewList={addingNewList}
-          saveChanges={this.saveChanges}
-          cancelChanges={this.cancelChanges}
-        />
-      </DragDropContextProvider>
+      <Board 
+        board={board} 
+        displayedTitle={displayedTitle}
+        listIds={listIds} 
+        newListTitle={newListTitle}
+        onChangeTextField={this.onChangeTextField}
+        changingTitle={changingTitle}
+        addingNewList={addingNewList}
+        saveChanges={this.saveChanges}
+        cancelChanges={this.cancelChanges}
+      />
     );
   }
 }

@@ -10,6 +10,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {cyan500, grey700} from 'material-ui/styles/colors';
+import {DragDropContextProvider} from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 
 
 var store = createStore(djelloApp, compose(
@@ -35,7 +37,9 @@ const customGlobalStyles = {
 ReactDOM.render(
   <Provider store={store}>
     <MuiThemeProvider muiTheme={getMuiTheme(customGlobalStyles)}>
-      <AppContainer />
+      <DragDropContextProvider backend={HTML5Backend}>
+        <AppContainer />
+      </DragDropContextProvider>
     </MuiThemeProvider>
   </Provider>, 
   document.getElementById('root')
