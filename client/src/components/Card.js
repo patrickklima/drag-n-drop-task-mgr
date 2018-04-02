@@ -8,10 +8,10 @@ import Chip from 'material-ui/Chip';
 import Checkbox from 'material-ui/Checkbox';
 import MembersContainer from '../containers/MembersContainer';
 import CardChanges from './CardChanges';
-import muiThemeable from 'material-ui/styles/muiThemeable';
+
 
 let Card = ({
-  muiTheme, //from muiThemeable
+  muiTheme, //from muiThemeable in CardContainer
   cardTitle, 
   cardId,
   description, 
@@ -113,16 +113,15 @@ let Card = ({
     </div>;
   return (
     <div>
-        <ListItem 
-          style={style.cardTitle}
-          onClick={openDialog}
-          primaryText={cardTitle}
-        />
-        {isdialogOpen && cardDialog }
-      </div> 
+      <ListItem 
+        style={style.cardTitle}
+        onClick={openDialog}
+        primaryText={cardTitle}
+      />
+      {isdialogOpen && cardDialog }
+    </div> 
 
   );
 };
 
-Card = muiThemeable()(Card);
 export default Card;
