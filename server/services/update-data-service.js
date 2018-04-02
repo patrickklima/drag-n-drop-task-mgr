@@ -7,5 +7,12 @@ module.exports = {
     .then(() => models.Board.getBoardAndLists(boardId))
     .catch(e => console.log(e));
   },
+  moveCard: (movingCardId, fromListId, toListId, boardId) => {
+    console.log("moveCard", movingCardId, fromListId, toListId);
+    return models.List.removeCard(fromListId, movingCardId)
+    .then(() => models.List.addCard(toListId, movingCardId))
+    .then(() => models.Board.getBoardAndLists(boardId))
+    .catch(e => console.log(e));
+  }
 };
 
