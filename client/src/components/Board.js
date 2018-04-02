@@ -76,8 +76,8 @@ return (
       />
       { addingNewList && 
         <SaveCancelButtons 
-          saveChanges={this.saveChanges}
-          cancelChanges={this.cancelChanges}
+          saveChanges={saveChanges}
+          cancelChanges={cancelChanges}
         />}
     </div>
   </div>
