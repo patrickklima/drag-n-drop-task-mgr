@@ -71,7 +71,7 @@ class BoardContainer extends Component {
     if (addingNewList) {
       this.props.addNewList(newListTitle, boardId);
       this.setState({
-        addingNewCard: false,
+        addingNewList: false,
         newListTitle: ''
       });
     }
