@@ -28,6 +28,17 @@ export const updateBoard = (type, id, data, boardId) => {
   );
 };
 
+export const moveCardToNewList = (movingCardId, fromListId, toListId, boardId) => {
+  return handleApiCall(
+    `${baseUrl[env]}/put/moveCard`,
+    'PUT',
+    {movingCardId, fromListId, toListId, boardId},
+    moveCardRequest,
+    moveCardSuccess,
+    moveCardFailure
+  );
+};
+
 export const addNewList = (listTitle, boardId) => {
   console.log("addNewListOrCard", listTitle, boardId);
   return handleApiCall(
@@ -64,13 +75,17 @@ export const ADD_NEW_LIST_OR_CARD_SUCCESS =  "ADD_NEW_LIST_OR_CARD_SUCCESS";
 export const ADD_NEW_LIST_OR_CARD_FAILURE =  "ADD_NEW_LIST_OR_CARD_FAILURE";
 export const ADD_NEW_LIST_OR_CARD_REQUEST =  "ADD_NEW_LIST_OR_CARD_REQUEST";
 
+export const MOVE_CARD_SUCCESS =  "MOVE_CARD_SUCCESS";
+export const MOVE_CARD_FAILURE =  "MOVE_CARD_FAILURE";
+export const MOVE_CARD_REQUEST =  "MOVE_CARD_REQUEST";
+
 export const getBoardSuccess = (data) => {
   console.log("getBoardSuccess");
   return {
     type: GET_BOARD_SUCCESS,
     data: data
   };
-}
+};
 export const getBoardFailure = (error) => {
   console.log("getBoardFailure");
   
@@ -78,13 +93,13 @@ export const getBoardFailure = (error) => {
     type: GET_BOARD_FAILURE,
     data: error
   };
-}
+};
 export const getBoardRequest = () => {
   console.log("getBoardRequest");
   return {
     type: GET_BOARD_REQUEST,
   };
-}
+};
 
 
 export const updateBoardSuccess = (data) => {
@@ -92,33 +107,55 @@ export const updateBoardSuccess = (data) => {
     type: UPDATE_BOARD_SUCCESS,
     data: data
   };
-}
+};
 export const updateBoardFailure = (error) => {
   return {
     type: UPDATE_BOARD_FAILURE,
     data: error
   };
-}
+};
 export const updateBoardRequest = () => {
   return {
     type: UPDATE_BOARD_REQUEST,
   };
-}
+};
 
 export const addNewListOrCardSuccess = (data) => {
   return {
     type: ADD_NEW_LIST_OR_CARD_SUCCESS,
     data: data
   };
-}
+};
 export const addNewListOrCardFailure = (error) => {
   return {
     type: ADD_NEW_LIST_OR_CARD_FAILURE,
     data: error
   };
-}
+};
 export const addNewListOrCardRequest = () => {
   return {
     type: ADD_NEW_LIST_OR_CARD_REQUEST,
   };
-}
+};
+
+export const moveCardSuccess = (data) => {
+  console.log("moveCardSuccess");
+  return {
+    type: MOVE_CARD_SUCCESS,
+    data: data
+  };
+};
+export const moveCardFailure = (error) => {
+  console.log("moveCardFailure");
+  
+  return {
+    type: MOVE_CARD_FAILURE,
+    data: error
+  };
+};
+export const moveCardRequest = () => {
+  console.log("moveCardRequest");
+  return {
+    type: MOVE_CARD_REQUEST,
+  };
+};

@@ -49,6 +49,7 @@ const board = (state=initial.board, action) => {
     case BoardActions.GET_BOARD_SUCCESS:
     case BoardActions.UPDATE_BOARD_SUCCESS:
     case BoardActions.ADD_NEW_LIST_OR_CARD_SUCCESS:
+    case BoardActions.MOVE_CARD_SUCCESS:
       console.log("reducer", action);
       const {_id, boardTitle, lists, cards} = normalizeBoardState(action.data);
       return {
@@ -61,7 +62,8 @@ const board = (state=initial.board, action) => {
       };
     case BoardActions.GET_BOARD_FAILURE: 
     case BoardActions.UPDATE_BOARD_FAILURE: 
-    case BoardActions.ADD_NEW_LIST_OR_CARD_FAILURE: 
+    case BoardActions.ADD_NEW_LIST_OR_CARD_FAILURE:  
+    case BoardActions.MOVE_CARD_FAILURE:  
       return {
         ...state,
         error: action.data,
@@ -70,6 +72,7 @@ const board = (state=initial.board, action) => {
     case BoardActions.GET_BOARD_REQUEST: 
     case BoardActions.UPDATE_BOARD_REQUEST:
     case BoardActions.ADD_NEW_LIST_OR_CARD_REQUEST:
+    case BoardActions.MOVE_CARD_REQUEST:
       return {
         ...state,
         isFetching: true,
