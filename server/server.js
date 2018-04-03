@@ -15,6 +15,11 @@ app.use(cors({
   credentials: true
 }))
 
+//SERVING REACT BUILD IN PRODUCTION
+// ----------
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+}
 
 // PASSPORT & JWT
 // ----------
@@ -56,11 +61,6 @@ require('./routes/login-route')(app);
 // ----------
 const apiRoutes = require('./routes/api-routes');
 app.use('/api', apiRoutes);
-
-app.get('/', (req, res) => {
-  res.send('hello world');
-});
-
 
 
 // ERROR HANDLING
