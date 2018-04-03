@@ -1,13 +1,16 @@
 {
-  "name": "project_djello",
+  "name": "react-redux-dragndrop-task-mgr",
   "version": "1.0.0",
-  "description": "Project management with that great wobbly taste!",
-  "main": "index.js",
+  "description": "A drag-n-drop task manager built as single page web app.",
+  "engines": {
+    "node": "8.9.4"
+  },
+  "main": "/server/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "cd server && node server",
     "start": "cd server && node server",
-    "postinstall": "cd server && npm install --save",
+    "postinstall": "cd server && npm install --save && cd data/seeds && node index",
     "client": "cd client && npm run start",
     "client:build": "cd client && npm run build",
     "seeds": "cd server/data/seeds && node index"
