@@ -1,18 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
-  NavLink, 
-  Link,
   BrowserRouter as Router, 
   Switch, 
   Route
 } from 'react-router-dom';
 import muiThemeable from 'material-ui/styles/muiThemeable';
 import Paper from 'material-ui/Paper';
-import {List, ListItem} from 'material-ui/List';
-import FileFolder from 'material-ui/svg-icons/file/folder';
-import {getAuth} from '../actions/UserActions'
-import {getBoard} from '../actions/BoardActions'
 import BoardContainer from './BoardContainer';
 import RegisterOrLoginContainer from './RegisterOrLoginContainer';
 import NavBarContainer from './NavBarContainer';

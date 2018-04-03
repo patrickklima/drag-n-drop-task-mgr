@@ -1,18 +1,7 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
 import AppBar from 'material-ui/AppBar';
 import NavPanel from '../components/NavPanel';
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.user,
-  };
-};
-const mapDispatchToUser = (dispatch) => {
-  return {
-  
-  };
-};
 
 class NavBarContainer extends Component {
   constructor(props) {
@@ -25,7 +14,6 @@ class NavBarContainer extends Component {
     this.setState({navPanelIsOpen: !this.state.navPanelIsOpen});
   }
   render() {
-    const {user} = this.props;
     const {navPanelIsOpen} = this.state;
     return (
       <AppBar
@@ -42,5 +30,4 @@ class NavBarContainer extends Component {
   }
 };
 
-NavBarContainer = connect(mapStateToProps, mapDispatchToUser)(NavBarContainer);
 export default NavBarContainer;

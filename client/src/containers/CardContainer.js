@@ -48,7 +48,6 @@ const collect = (connect, monitor) => {
 class CardContainer extends Component {
   constructor(props) {
     super(props);
-    const {listId, cardId} = props;
 
     this.state = {
       type: 'Card',
@@ -105,10 +104,8 @@ class CardContainer extends Component {
     this.setState({isdialogOpen: false});
   }
   
-  
-
   render() {
-    const {connectDragSource, isDragging, muiTheme} = this.props;
+    const {connectDragSource, muiTheme} = this.props;
     const {cardTitle, description, isCompleted, changes} = this.props.card;
     const {listTitle} = this.props.list;
     console.log("CardContainer - cardID", this.props.cardId);

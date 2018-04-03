@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import TextField from 'material-ui/TextField';
 import Avatar from 'material-ui/Avatar';
-import {Paper, List, ListItem} from 'material-ui/List';
+import {List, ListItem} from 'material-ui/List';
 import FileFolder from 'material-ui/svg-icons/file/folder';
 import ActionNoteAdd from 'material-ui/svg-icons/action/note-add';
 import SaveCancelButtons from '../components/SaveCancelButtons';

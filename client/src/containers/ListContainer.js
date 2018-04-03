@@ -92,7 +92,7 @@ class ListContainer extends Component {
 
   render() {
     const {displayedTitle, newCardTitle, changingTitle, addingNewCard} = this.state;
-    const {list, canDrop, isOver, connectDropTarget} = this.props;
+    const {list, connectDropTarget} = this.props;
     console.log("ListContainer", this.state);
     return connectDropTarget(
       <div>

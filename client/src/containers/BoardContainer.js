@@ -88,7 +88,7 @@ class BoardContainer extends Component {
   render() {
     console.log("BoardContainer:", this.props.board)
     const {displayedTitle, newListTitle, changingTitle, addingNewList} = this.state;
-    const {board, muiTheme, listIds} = this.props;
+    const {board, listIds} = this.props;
     return (
       <Board 
         board={board} 

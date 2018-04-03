@@ -1,6 +1,5 @@
 import React from 'react';
 import TextField from 'material-ui/TextField';
-import FlatButton from 'material-ui/FlatButton';
 import {ListItem} from 'material-ui/List';
 import CardContainer from '../containers/CardContainer';
 import SaveCancelButtons from './SaveCancelButtons';
