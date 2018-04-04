@@ -14,13 +14,13 @@ This React/Redux SPA receives data from an Express API backed by CRUD services p
 
 ## Features
 **Log in and Select a Board**  
-<img src="https://raw.githubusercontent.com/patrickklima/react-redux-drag-n-drop-task-mgr/master/docs/GIFs/1-logging-in-and-selecting-a-board.gif" width="450" alt="Log in and Select a Board">  
+<img src="https://raw.githubusercontent.com/patrickklima/react-redux-drag-n-drop-task-mgr/master/docs/GIFs/1-logging-in-and-selecting-a-board.gif" width="600" alt="Log in and Select a Board">  
 
 **Editing Card Content**  
-<img src="https://raw.githubusercontent.com/patrickklima/react-redux-drag-n-drop-task-mgr/master/docs/GIFs/2-changing-card-content.gif" width="450" alt="Editing Card Content">  
+<img src="https://raw.githubusercontent.com/patrickklima/react-redux-drag-n-drop-task-mgr/master/docs/GIFs/2-changing-card-content.gif" width="600" alt="Editing Card Content">  
 
 **Creating New Lists and Dragging Cards**  
-<img src="https://raw.githubusercontent.com/patrickklima/react-redux-drag-n-drop-task-mgr/master/docs/GIFs/3-Creating-new-lists-and-cards-and-dragging.gif" width="450" alt="Creating New Lists and Dragging Cards">  
+<img src="https://raw.githubusercontent.com/patrickklima/react-redux-drag-n-drop-task-mgr/master/docs/GIFs/3-Creating-new-lists-and-cards-and-dragging.gif" width="600" alt="Creating New Lists and Dragging Cards">  
 
 ## Installation and Startup
 1. `git clone [this repo]`
