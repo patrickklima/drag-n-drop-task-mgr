@@ -10,9 +10,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "cd server && node server",
     "start": "cd server && node server",
-    "postinstall": "cd server && npm install --save && cd data/seeds && node index",
+    "postinstall": "npm run seeds && echo 'Server is ready. Start with npm run server'$'\n'",
     "client": "cd client && npm run start",
     "client:build": "cd client && npm run build",
+    "client:install": "cd client && npm install && echo 'Client is ready. Start with npm run client'$'\n'",
     "seeds": "cd server/data/seeds && node index"
   },
   "repository": {
