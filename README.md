@@ -1,8 +1,6 @@
 # React-Redux Drag-n-Drop Task Manager
 A drag-n-drop task manager built as single page web app. 
-Djello is like Trello, but much more jggly….  (built for educational purposes only)
-
-A React/Redux SPA served by an Express API that provides CRUD operations for a Mongo database controlled with Mongoose, all happily abiding in NodeJS.  
+This React/Redux SPA receives data from an Express API backed by CRUD services performed by Mongoose on a Mongo database, all happily abiding in NodeJS.  
 
 ## Tech Stack
 - MongoDB
@@ -13,6 +11,16 @@ A React/Redux SPA served by an Express API that provides CRUD operations for a M
 - React-Router
 - Redux 
 - Redux-Thunk 
+
+## Features
+**Log in and Select a Board**  
+<img src="https://raw.githubusercontent.com/patrickklima/react-redux-drag-n-drop-task-mgr/master/docs/GIFs/1-logging-in-and-selecting-a-board.gif" width="450" alt="Log in and Select a Board">  
+
+**Editing Card Content**  
+<img src="https://raw.githubusercontent.com/patrickklima/react-redux-drag-n-drop-task-mgr/master/docs/GIFs/2-changing-card-content.gif" width="450" alt="Editing Card Content">  
+
+**Creating New Lists and Dragging Cards**  
+<img src="https://raw.githubusercontent.com/patrickklima/react-redux-drag-n-drop-task-mgr/master/docs/GIFs/3-Creating-new-lists-and-cards-and-dragging.gif" width="450" alt="Creating New Lists and Dragging Cards">  
 
 ## Installation and Startup
 1. `git clone [this repo]`
